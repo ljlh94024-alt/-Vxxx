@@ -1,0 +1,13 @@
+browser:
+  profile_path: "./data/profile"
+  headless: false
+  timeout: 60
+
+gemini:
+  url: "https://gemini.google.com"
+
+task:
+  timeout: 300
+
+retry:
+  max_retry: 3

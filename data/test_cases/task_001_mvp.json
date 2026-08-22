@@ -1,0 +1,8 @@
+{
+  "id": "task_001_mvp",
+  "goal": "总结Python编程语言的主要优势",
+  "prompt": "请总结Python语言的3个核心优势，并提供一段简短的评价。",
+  "expected_output": "{\"advantages\": [], \"evaluation\": \"\"}",
+  "timeout": 120,
+  "retry": 3
+}

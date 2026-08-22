@@ -1,0 +1,19 @@
+# Python / Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# User & Session Data
+data/profile/
+data/logs/
+data/screenshots/
+data/results/
+
+# Environment / IDE
+.env
+.venv/
+env/
+venv/
+.vscode/
+.idea/
