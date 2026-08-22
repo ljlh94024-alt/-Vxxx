@@ -1,91 +1,97 @@
-# Gemini Browser Client v0.2 (AI Worker Runtime)
+# Gemini Browser Client v0.2.1 (AI Worker Runtime 稳定补丁版)
 
-Gemini Browser Client v0.2 是面向长期稳定运行的 AI Worker Runtime 执行系统。
-在 v0.1 单次执行脚本的基础上，v0.2 增强了运行时稳定性、常驻浏览器管理、异常自动恢复、SQLite 任务状态持久化、以及可扩展的 Worker 接口抽象。
-
----
-
-## 1. v0.2 升级特性
-
-- **Browser Manager (常驻运行时管理)**: 支持浏览器进程常驻与上下文复用，避免多任务之间重复拉起与关闭浏览器。
-- **SQLite State Store (状态持久化)**: 内置 `StateStore` (`data/state.db`)，完整记录任务生命周期（`CREATED`, `RUNNING`, `SUCCESS`, `FAILED`, `RETRYING`, `CANCELLED`）。
-- **Crash Recovery (异常自动恢复)**: 遇到页面崩溃或上下文断开时，系统自动重启 BrowserManager 并重新加载会话，无需人工干预。
-- **Worker 接口抽象 (BaseWorker / GeminiWorker)**: 统一 Web AI Worker 交互协议，方便未来水平接入 ChatGPT Worker、Claude Worker 或本地模型。
-- **Selector Adapter (选择器独立适配器)**: 采用 `selectors/gemini.yaml` 集中管理选择器配置，严格遵循 `aria` > `role` > `placeholder` > `text` > `css` 优先级。
-- **日志可追踪性增强**: 记录 `execution_id`, `worker_id`, `browser_id`, `retry_count`, `duration`, `model` 等细粒度追踪字段。
+Gemini Browser Client v0.2.1 是面向长期驻留运行的单 AI Worker Runtime 节点系统。
+在 v0.2 基础上，v0.2.1 进一步补齐了持续任务循环（Runtime Loop）、详细 Execution 历史追踪表、Worker 工厂抽象、以及完整的 Controller 核心流程 Mock 测试。
 
 ---
 
-## 2. 系统目录结构
+## 1. v0.2.1 核心升级
+
+1. **Runtime Loop (`runtime.py`)**:
+   - 提供后台持续任务接收与执行循环（`Runtime.run_loop` / `submit_task` / `enqueue_task`）。
+   - 保持 BrowserWorker 常驻，连续处理多任务无缝衔接。
+2. **Execution 历史系统 (`store.py`)**:
+   - 在 SQLite 中新增 `executions` 表，完整追踪每次重试（`attempt`、`state`、`error`、`duration`）。
+   - 支持多层级复盘：单任务生命周期 + 每次尝试的独立执行状态。
+3. **WorkerFactory (`worker_factory.py`)**:
+   - 将具体模型 Worker 实例化与 Controller 解耦，统一工厂接口。
+4. **Browser 健康检查与安全恢复 (`browser.py`, `controller.py`)**:
+   - 新增 `health_check()` 主动感知页面活性与异常；
+   - 确保恢复后 Page 状态合法再继续重试流程。
+5. **Controller 核心测试全覆盖 (`test_unit.py`)**:
+   - 新增成功链路与递进重试链路的 Mock 流程单元测试。
+
+---
+
+## 2. 目录结构
 
 ```text
 C:\code\
-├── main.py                     # CLI 与常驻 Runtime 入口
-├── controller.py               # 控制器、状态机流转与自愈逻辑
-├── browser.py                  # BrowserManager (Playwright 常驻上下文管理与自愈)
-├── worker.py                   # BaseWorker 抽象基类与 GeminiWorker 实现
-├── gemini.py                   # 兼容层与模块重导出
-├── store.py                    # SQLite 状态存储管理 (StateStore)
-├── task.py                     # Task 与 Result 数据模型
+├── main.py                     # CLI 入口（支持单任务与 --loop 常驻循环）
+├── runtime.py                  # Runtime 持续任务循环调度器
+├── controller.py               # 控制器、状态机与异常恢复
+├── browser.py                  # BrowserManager (Playwright 常驻管理与健康检查)
+├── worker_factory.py           # WorkerFactory 工厂类
+├── worker.py                   # BaseWorker 基类与 GeminiWorker
+├── gemini.py                   # 模块别名兼容层
+├── store.py                    # SQLite 状态与 Execution 历史存储 (StateStore)
+├── task.py                     # Task 与 Result 数据协议
 ├── parser.py                   # Markdown/JSON 提取与解析
-├── validator.py                # 字段与模式校验器
+├── validator.py                # 模式与字段校验器
 ├── config.py                   # 配置加载器
 ├── logger.py                   # 结构化 JSON 追踪日志记录
 ├── requirements.txt            # 项目依赖
 ├── config.yaml                 # 配置文件
 ├── config.yaml.example         # 配置示例文件
-├── test_unit.py                # 自动化测试用例
-├── README.md                   # 工程使用与说明文档
+├── test_unit.py                # 完整单元与流程测试套件
+├── README.md                   # 说明文档
 ├── selectors/
-│   └── gemini.yaml             # Gemini 页面元素选择器适配配置
+│   └── gemini.yaml             # Gemini 页面选择器映射
 └── data/
-    ├── profile/                # Chromium 持久化用户目录 (保持登录状态)
+    ├── profile/                # 用户登录持久化目录
     ├── logs/                   # 结构化运行日志目录 (app.log)
-    ├── screenshots/            # 异常与错误截图目录
-    ├── results/                # 任务执行结果输出目录
-    ├── state.db                # SQLite 任务状态持久化数据库
+    ├── screenshots/            # 错误与异常截图
+    ├── results/                # 结果输出目录
+    ├── state.db                # SQLite 任务与执行历史数据库
     └── test_cases/             # 测试任务定义 (task_001_mvp.json)
 ```
 
 ---
 
-## 3. 环境准备与依赖安装
+## 3. 安装与运行
 
+### 3.1 依赖安装
 ```bash
 pip install -r requirements.txt
 playwright install chromium
 ```
 
----
-
-## 4. 运行与操作说明
-
-### 4.1 首次人工登录
-启动浏览器完成首次 Google/Gemini 账号登录（会话将自动保存在 `./data/profile`）：
+### 3.2 常驻 Worker Loop 模式
 ```bash
-python main.py
+python main.py --loop
 ```
 
-### 4.2 连续执行任务 (常驻 Browser 模式)
+### 3.3 运行单任务并保留浏览器
 ```bash
-python main.py --task-id "task_002" --goal "总结Python特性" --prompt "请列出Python的三大核心特性并给出简评。" --expected-output '{"features": [], "summary": ""}'
+python main.py --task-id "task_003" --goal "总结Python特性" --prompt "请列出Python的三大核心特性并给出简评。" --expected-output '{"features": [], "summary": ""}'
 ```
 
-### 4.3 查询任务状态
-通过 SQLite 状态持久层查询任务历史与当前状态：
+### 3.4 历史记录与执行查询
 ```bash
-# 查询指定任务详情
-python main.py --query-task "task_002"
+# 查询任务汇总状态
+python main.py --query-task "task_003"
 
-# 查看最近执行任务列表
+# 查询单任务所有重试执行记录 (executions 历史)
+python main.py --query-executions "task_003"
+
+# 列出最近任务
 python main.py --list-tasks
 ```
 
 ---
 
-## 5. 测试验收
+## 4. 测试与验证
 
-执行测试套件：
 ```bash
 python test_unit.py
 ```

@@ -6,8 +6,9 @@ from playwright.sync_api import sync_playwright, Playwright, BrowserContext, Pag
 
 class BrowserManager:
     """
-    Browser Manager for v0.2 Runtime.
-    Maintains persistent browser context across continuous tasks, handles crashes and auto-recovery.
+    Browser Manager for v0.2.1 Runtime.
+    Maintains persistent browser context, performs health checks, crash recovery,
+    and supports continuous multi-task execution without shutdown.
     """
 
     def __init__(
@@ -26,11 +27,31 @@ class BrowserManager:
         self._page: Optional[Page] = None
         self.is_running: bool = False
 
+    def health_check(self) -> Tuple[bool, str]:
+        """
+        Check if browser context and page are alive, not closed, and responsive.
+        Returns: (is_healthy, message)
+        """
+        if not self.is_running:
+            return False, "Browser is not marked as running"
+        if not self._context:
+            return False, "Browser context is None"
+        if not self._page or self._page.is_closed():
+            return False, "Target page is None or closed"
+
+        try:
+            # Perform a lightweight responsive check
+            title = self._page.title()
+            return True, f"Browser is healthy, page title: {title}"
+        except Exception as e:
+            return False, f"Page health check failed: {str(e)}"
+
     def start(self) -> Tuple[bool, str]:
         """Start persistent context with Chromium, preserving session/cookies."""
         try:
-            if self.is_running and self._page and not self._page.is_closed():
-                return True, "Browser already running"
+            healthy, _ = self.health_check()
+            if healthy:
+                return True, "Browser already running and healthy"
 
             if not os.path.exists(self.profile_path):
                 os.makedirs(self.profile_path, exist_ok=True)
@@ -164,5 +185,5 @@ class BrowserManager:
         self.is_running = False
 
 
-# Backwards compatibility alias for v0.1 BrowserEngine
+# Backwards compatibility alias
 BrowserEngine = BrowserManager

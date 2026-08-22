@@ -1,14 +1,14 @@
 import os
 import time
 import uuid
-from typing import Optional
+from typing import Optional, Tuple
 
 from config import AppConfig
 from logger import setup_logger, log_event
 from task import Task, Result
 from store import StateStore, TaskState
 from browser import BrowserManager
-from worker import GeminiWorker
+from worker_factory import WorkerFactory
 from parser import parse_response
 from validator import validate_result
 
@@ -32,9 +32,9 @@ class State:
 
 class Controller:
     """
-    v0.2 Runtime Controller.
+    v0.2.1 Runtime Controller.
     Responsible for worker lifecycle, state transitions, auto-recovery on browser/page crash,
-    and SQLite state persistence. Supports continuous task execution without re-launching browser.
+    execution history recording in SQLite, and WorkerFactory integration.
     """
 
     def __init__(self, config: AppConfig, worker_id: str = "worker_0", db_path: str = "data/state.db"):
@@ -112,69 +112,71 @@ class Controller:
             )
 
     def recover_runtime(self, task_id: str, execution_id: str) -> bool:
-        """Crash recovery: restart browser manager and reload page."""
+        """Crash recovery: restart browser manager and reload page safely."""
         self.set_state(State.RETRYING, task_id, "recover_browser_runtime", execution_id=execution_id)
         restarted, err = self.browser_manager.restart()
         if not restarted:
             return False
         opened, _ = self.browser_manager.open_page(self.config.gemini.url)
-        return opened
+        page = self.browser_manager.get_page()
+        return opened and page is not None and not page.is_closed()
 
     def execute_task(self, task: Task, keep_browser_open: bool = True) -> Result:
         task_id = task.id or f"task_{uuid.uuid4().hex[:8]}"
-        execution_id = f"exec_{uuid.uuid4().hex[:8]}"
         start_time = time.time()
 
         # State store: Task Created
         self.state_store.create_task(task_id)
         self.state_store.update_state(task_id, TaskState.RUNNING)
-        self.set_state(State.INIT, task_id, "start_task_execution", execution_id=execution_id, start_time=start_time)
 
         try:
-            # Check or start browser
-            if not self.browser_manager.is_running or not self.browser_manager.get_page():
-                self.set_state(State.BROWSER_STARTING, task_id, "launch_browser", execution_id=execution_id, start_time=start_time)
+            # Check or start browser with health check
+            healthy, _ = self.browser_manager.health_check()
+            if not healthy:
+                self.set_state(State.BROWSER_STARTING, task_id, "launch_browser", start_time=start_time)
                 started, err_msg = self.browser_manager.start()
                 if not started:
-                    self.set_state(State.FAILED, task_id, "launch_browser", error=err_msg, execution_id=execution_id, start_time=start_time)
+                    self.set_state(State.FAILED, task_id, "launch_browser", error=err_msg, start_time=start_time)
                     self.state_store.update_state(task_id, TaskState.FAILED, error=err_msg)
                     return Result(id=task_id, status="failed", error=f"Browser launch failure: {err_msg}")
-                self.set_state(State.BROWSER_READY, task_id, "launch_browser", result="Browser ready", execution_id=execution_id, start_time=start_time)
+                self.set_state(State.BROWSER_READY, task_id, "launch_browser", result="Browser ready", start_time=start_time)
 
             # Open or ensure page
-            self.set_state(State.OPEN_PAGE, task_id, f"open_{self.config.gemini.url}", execution_id=execution_id, start_time=start_time)
+            self.set_state(State.OPEN_PAGE, task_id, f"open_{self.config.gemini.url}", start_time=start_time)
             opened, open_err = self.browser_manager.open_page(self.config.gemini.url)
             if not opened:
-                # Attempt recovery
-                recovered = self.recover_runtime(task_id, execution_id)
+                init_exec_id = f"exec_{task_id}_init"
+                recovered = self.recover_runtime(task_id, init_exec_id)
                 if not recovered:
                     screenshot_file = self.browser_manager.screenshot()
-                    self.set_state(State.FAILED, task_id, "open_page_failed", error=open_err, execution_id=execution_id, start_time=start_time)
+                    self.set_state(State.FAILED, task_id, "open_page_failed", error=open_err, start_time=start_time)
                     self.state_store.update_state(task_id, TaskState.FAILED, error=open_err)
                     return Result(id=task_id, status="failed", error=f"Page open failed: {open_err}", screenshot=screenshot_file)
 
             # Check login
-            self.set_state(State.CHECK_LOGIN, task_id, "verify_authentication", execution_id=execution_id, start_time=start_time)
+            self.set_state(State.CHECK_LOGIN, task_id, "verify_authentication", start_time=start_time)
             is_logged_in, login_msg = self.browser_manager.check_login()
             if not is_logged_in:
                 screenshot_file = self.browser_manager.screenshot()
-                self.set_state(State.FAILED, task_id, "check_login", error=login_msg, execution_id=execution_id, start_time=start_time)
+                self.set_state(State.FAILED, task_id, "check_login", error=login_msg, start_time=start_time)
                 self.state_store.update_state(task_id, TaskState.FAILED, error=login_msg)
                 return Result(id=task_id, status="login_required", error=f"Login required: {login_msg}", screenshot=screenshot_file)
 
-            self.set_state(State.READY, task_id, "verify_authentication", result="Authenticated", execution_id=execution_id, start_time=start_time)
+            self.set_state(State.READY, task_id, "verify_authentication", result="Authenticated", start_time=start_time)
 
             page = self.browser_manager.get_page()
-            if not page:
+            if not page or page.is_closed():
                 self.state_store.update_state(task_id, TaskState.FAILED, error="Page reference lost")
                 return Result(id=task_id, status="failed", error="Page reference lost")
 
-            worker = GeminiWorker(page)
+            worker = WorkerFactory.create_worker("gemini", page)
             max_retries = min(task.retry or self.config.retry.max_retry, 3)
             last_error = ""
             last_raw_content = ""
 
             for attempt in range(1, max_retries + 1):
+                attempt_start = time.time()
+                execution_id = f"exec_{task_id}_{attempt}"
                 attempt_prompt = self.generate_prompt_for_attempt(task, attempt, last_error)
 
                 # Send prompt
@@ -185,8 +187,11 @@ class Controller:
                     # Try recovery if page crashed
                     if "Target page, context or browser has been closed" in send_err:
                         self.recover_runtime(task_id, execution_id)
-                        worker = GeminiWorker(self.browser_manager.get_page())  # type: ignore
+                        new_page = self.browser_manager.get_page()
+                        if new_page and not new_page.is_closed():
+                            worker = WorkerFactory.create_worker("gemini", new_page)
                     self.set_state(State.FAILED, task_id, "send_prompt", error=last_error, execution_id=execution_id, retry_count=attempt, start_time=start_time)
+                    self.state_store.record_execution(execution_id, task_id, attempt, TaskState.FAILED, error=last_error, duration=time.time() - attempt_start)
                     self.state_store.update_state(task_id, TaskState.RETRYING, error=last_error)
                     continue
 
@@ -196,6 +201,7 @@ class Controller:
                 if not wait_ok:
                     last_error = f"Wait timeout: {wait_err}"
                     self.set_state(State.FAILED, task_id, "wait_response", error=last_error, execution_id=execution_id, retry_count=attempt, start_time=start_time)
+                    self.state_store.record_execution(execution_id, task_id, attempt, TaskState.FAILED, error=last_error, duration=time.time() - attempt_start)
                     self.state_store.update_state(task_id, TaskState.RETRYING, error=last_error)
                     continue
 
@@ -205,6 +211,7 @@ class Controller:
                 if not read_ok:
                     last_error = f"Read failed: {read_err}"
                     self.set_state(State.FAILED, task_id, "read_response", error=last_error, execution_id=execution_id, retry_count=attempt, start_time=start_time)
+                    self.state_store.record_execution(execution_id, task_id, attempt, TaskState.FAILED, error=last_error, duration=time.time() - attempt_start)
                     self.state_store.update_state(task_id, TaskState.RETRYING, error=last_error)
                     continue
 
@@ -216,6 +223,7 @@ class Controller:
                 if not parse_ok:
                     last_error = f"Parse failed: {parse_err}"
                     self.set_state(State.FAILED, task_id, "parse_response", error=last_error, execution_id=execution_id, retry_count=attempt, start_time=start_time)
+                    self.state_store.record_execution(execution_id, task_id, attempt, TaskState.FAILED, error=last_error, duration=time.time() - attempt_start)
                     self.state_store.update_state(task_id, TaskState.RETRYING, error=last_error)
                     continue
 
@@ -225,11 +233,14 @@ class Controller:
                 if not val_ok:
                     last_error = f"Validation failed: {val_err}"
                     self.set_state(State.FAILED, task_id, "validate_result", error=last_error, execution_id=execution_id, retry_count=attempt, start_time=start_time)
+                    self.state_store.record_execution(execution_id, task_id, attempt, TaskState.FAILED, error=last_error, duration=time.time() - attempt_start)
                     self.state_store.update_state(task_id, TaskState.RETRYING, error=last_error)
                     continue
 
                 # Success
+                duration = time.time() - attempt_start
                 self.set_state(State.SUCCESS, task_id, "task_completed_successfully", execution_id=execution_id, retry_count=attempt, start_time=start_time)
+                self.state_store.record_execution(execution_id, task_id, attempt, TaskState.SUCCESS, duration=duration)
                 self.state_store.update_state(task_id, TaskState.SUCCESS, result=json_dict)
                 return Result(
                     id=task_id,
@@ -240,7 +251,7 @@ class Controller:
 
             # All attempts failed
             screenshot_file = self.browser_manager.screenshot()
-            self.set_state(State.FAILED, task_id, "all_attempts_exhausted", error=last_error, execution_id=execution_id, start_time=start_time)
+            self.set_state(State.FAILED, task_id, "all_attempts_exhausted", error=last_error, start_time=start_time)
             self.state_store.update_state(task_id, TaskState.FAILED, error=last_error)
             return Result(
                 id=task_id,

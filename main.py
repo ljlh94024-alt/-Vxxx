@@ -8,6 +8,7 @@ from config import load_config
 from task import Task, Result
 from controller import Controller
 from store import StateStore
+from runtime import Runtime
 
 
 def save_result_to_file(result: Result, output_dir: str = "./data/results") -> str:
@@ -21,7 +22,7 @@ def save_result_to_file(result: Result, output_dir: str = "./data/results") -> s
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Gemini Browser Client v0.2 Runtime CLI")
+    parser = argparse.ArgumentParser(description="Gemini Browser Client v0.2.1 AI Worker Runtime CLI")
     parser.add_argument("--config", default="config.yaml", help="Path to config.yaml")
     parser.add_argument("--task-file", help="Path to JSON task definition file")
     parser.add_argument("--task-id", default="task_cli_001", help="Task ID for direct CLI execution")
@@ -29,16 +30,18 @@ def main():
     parser.add_argument("--prompt", default="请列出人工智能的三大核心要素，并给出简短解释。", help="Prompt to execute")
     parser.add_argument("--expected-output", default='{"elements": [], "summary": ""}', help="Expected JSON structure or required fields")
     parser.add_argument("--headless", action="store_true", help="Override config and run in headless mode")
-    parser.add_argument("--keep-alive", action="store_true", default=True, help="Keep browser open for multiple executions (default: True)")
     parser.add_argument("--close-after", action="store_true", help="Close browser immediately after task execution")
     parser.add_argument("--query-task", help="Query task execution status from SQLite state store by task_id")
+    parser.add_argument("--query-executions", help="Query detailed execution attempts for a task by task_id")
     parser.add_argument("--list-tasks", action="store_true", help="List recent tasks from SQLite state store")
+    parser.add_argument("--loop", action="store_true", help="Start continuous runtime worker loop")
 
     args = parser.parse_args()
 
-    # If querying state store
+    store = StateStore()
+
+    # Query task status
     if args.query_task:
-        store = StateStore()
         record = store.get_task(args.query_task)
         if record:
             print(json.dumps(record, ensure_ascii=False, indent=2))
@@ -46,8 +49,14 @@ def main():
             print(f"Task {args.query_task} not found in state store.")
         return
 
+    # Query execution attempts
+    if args.query_executions:
+        execs = store.get_task_executions(args.query_executions)
+        print(json.dumps(execs, ensure_ascii=False, indent=2))
+        return
+
+    # List tasks
     if args.list_tasks:
-        store = StateStore()
         tasks = store.list_tasks(limit=20)
         print(json.dumps(tasks, ensure_ascii=False, indent=2))
         return
@@ -55,6 +64,24 @@ def main():
     config = load_config(args.config)
     if args.headless:
         config.browser.headless = True
+
+    # Continuous Runtime Loop Mode
+    if args.loop:
+        print("=" * 60)
+        print("Starting Gemini Browser Client v0.2.1 Continuous Runtime Loop...")
+        print("Press Ctrl+C to terminate runtime.")
+        print("=" * 60)
+        runtime = Runtime(config=config)
+        if not runtime.start():
+            print("Failed to start browser runtime.")
+            sys.exit(1)
+        try:
+            runtime.run_loop()
+        except KeyboardInterrupt:
+            print("\nShutting down runtime loop...")
+        finally:
+            runtime.shutdown()
+        return
 
     if args.task_file and os.path.exists(args.task_file):
         with open(args.task_file, "r", encoding="utf-8") as f:
@@ -71,7 +98,7 @@ def main():
         )
 
     print("=" * 60)
-    print(f"Gemini Browser Client v0.2 AI Worker Runtime")
+    print(f"Gemini Browser Client v0.2.1 AI Worker Runtime")
     print(f"Task: {task.id} | Goal: {task.goal}")
     print("=" * 60)
 
