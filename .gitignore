@@ -4,11 +4,13 @@ __pycache__/
 *$py.class
 .pytest_cache/
 
-# User & Session Data
+# User & Session Data (Sensitive)
 data/profile/
 data/logs/
 data/screenshots/
-data/results/
+data/state.db
+data/test_state*.db
+data/e2e_test_state.db
 
 # Environment / IDE
 .env

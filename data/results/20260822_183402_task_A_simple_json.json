@@ -1,0 +1,40 @@
+{
+  "id": "task_A_simple_json",
+  "status": "success",
+  "content": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"applications\": [\n        \"人工智能与机器学习\",\n        \"数据分析与科学计算\",\n        \"Web 后端开发\",\n        \"自动化脚本与运维\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"applications\": [\n        \"Web 前端开发\",\n        \"Web 全栈开发 (Node.js)\",\n        \"移动跨平台应用开发 (React Native 等)\",\n        \"轻量级后端服务\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"applications\": [\n        \"大型企业级系统开发\",\n        \"Android 移动应用开发\",\n        \"大数据技术栈 (Hadoop, Spark 等)\",\n        \"高并发分布式后端服务\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 是当前软件开发领域最通用且主流的三种编程语言，分别在数据与人工智能、Web全栈与交互、以及大型企业级分布式后端系统中占据主导地位。\"\n}",
+  "json_result": {
+    "languages": [
+      {
+        "name": "Python",
+        "applications": [
+          "人工智能与机器学习",
+          "数据分析与科学计算",
+          "Web 后端开发",
+          "自动化脚本与运维"
+        ]
+      },
+      {
+        "name": "JavaScript",
+        "applications": [
+          "Web 前端开发",
+          "Web 全栈开发 (Node.js)",
+          "移动跨平台应用开发 (React Native 等)",
+          "轻量级后端服务"
+        ]
+      },
+      {
+        "name": "Java",
+        "applications": [
+          "大型企业级系统开发",
+          "Android 移动应用开发",
+          "大数据技术栈 (Hadoop, Spark 等)",
+          "高并发分布式后端服务"
+        ]
+      }
+    ],
+    "summary": "Python、JavaScript 和 Java 是当前软件开发领域最通用且主流的三种编程语言，分别在数据与人工智能、Web全栈与交互、以及大型企业级分布式后端系统中占据主导地位。"
+  },
+  "error": "",
+  "screenshot": "",
+  "time": "2026-08-22T18:34:02.034791"
+}

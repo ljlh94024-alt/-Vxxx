@@ -1,0 +1,67 @@
+{
+  "timestamp": "2026-08-22T18:35:31",
+  "mode": "gui",
+  "total_rounds": 5,
+  "success_count": 5,
+  "failed_count": 0,
+  "success_rate_percent": 100.0,
+  "total_duration_sec": 60.91,
+  "avg_duration_sec": 11.09,
+  "round_details": [
+    {
+      "round": 1,
+      "task_id": "task_A_simple_json_r1",
+      "status": "success",
+      "duration": 11.28,
+      "error": "",
+      "metrics": {
+        "rss_mb": 0.0,
+        "cpu_percent": 0.0
+      }
+    },
+    {
+      "round": 2,
+      "task_id": "task_B_long_text_r2",
+      "status": "success",
+      "duration": 12.93,
+      "error": "",
+      "metrics": {
+        "rss_mb": 0.0,
+        "cpu_percent": 0.0
+      }
+    },
+    {
+      "round": 3,
+      "task_id": "task_C_complex_format_r3",
+      "status": "success",
+      "duration": 9.23,
+      "error": "",
+      "metrics": {
+        "rss_mb": 0.0,
+        "cpu_percent": 0.0
+      }
+    },
+    {
+      "round": 4,
+      "task_id": "task_A_simple_json_r4",
+      "status": "success",
+      "duration": 9.56,
+      "error": "",
+      "metrics": {
+        "rss_mb": 0.0,
+        "cpu_percent": 0.0
+      }
+    },
+    {
+      "round": 5,
+      "task_id": "task_B_long_text_r5",
+      "status": "success",
+      "duration": 12.46,
+      "error": "",
+      "metrics": {
+        "rss_mb": 0.0,
+        "cpu_percent": 0.0
+      }
+    }
+  ]
+}
