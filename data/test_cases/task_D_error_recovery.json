@@ -1,0 +1,8 @@
+{
+  "id": "task_D_error_recovery",
+  "goal": "异常格式与重试恢复测试",
+  "prompt": "请写一段关于天气的随笔。注意：期望输出结构包含 strict_token 字段。",
+  "expected_output": "{\"strict_token\": \"REQUIRED_WEATHER_TOKEN_2026\", \"essay\": \"\"}",
+  "timeout": 120,
+  "retry": 3
+}

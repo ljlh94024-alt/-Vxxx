@@ -1,0 +1,8 @@
+{
+  "id": "task_C_complex_format",
+  "goal": "嵌套JSON与复杂结构测试",
+  "prompt": "请设计一个电商系统的核心订单数据结构，包含 order_id、user 信息对象、items 商品列表以及 payment 支付状态对象。",
+  "expected_output": "{\"order_id\": \"\", \"user\": {}, \"items\": [], \"payment\": {}}",
+  "timeout": 120,
+  "retry": 3
+}

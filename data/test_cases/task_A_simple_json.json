@@ -1,0 +1,8 @@
+{
+  "id": "task_A_simple_json",
+  "goal": "获取结构化基础信息",
+  "prompt": "请列出三种最常用的编程语言及其主要应用领域。",
+  "expected_output": "{\"languages\": [], \"summary\": \"\"}",
+  "timeout": 120,
+  "retry": 3
+}

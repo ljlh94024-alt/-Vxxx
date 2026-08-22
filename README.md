@@ -1,96 +1,80 @@
-# Gemini Browser Client v0.2.1 (AI Worker Runtime 稳定补丁版)
+# Gemini Browser Client v0.2.1-V1.1 实机验证与验收指南（验证冻结版）
 
-Gemini Browser Client v0.2.1 是面向长期驻留运行的单 AI Worker Runtime 节点系统。
-在 v0.2 基础上，v0.2.1 进一步补齐了持续任务循环（Runtime Loop）、详细 Execution 历史追踪表、Worker 工厂抽象、以及完整的 Controller 核心流程 Mock 测试。
-
----
-
-## 1. v0.2.1 核心升级
-
-1. **Runtime Loop (`runtime.py`)**:
-   - 提供后台持续任务接收与执行循环（`Runtime.run_loop` / `submit_task` / `enqueue_task`）。
-   - 保持 BrowserWorker 常驻，连续处理多任务无缝衔接。
-2. **Execution 历史系统 (`store.py`)**:
-   - 在 SQLite 中新增 `executions` 表，完整追踪每次重试（`attempt`、`state`、`error`、`duration`）。
-   - 支持多层级复盘：单任务生命周期 + 每次尝试的独立执行状态。
-3. **WorkerFactory (`worker_factory.py`)**:
-   - 将具体模型 Worker 实例化与 Controller 解耦，统一工厂接口。
-4. **Browser 健康检查与安全恢复 (`browser.py`, `controller.py`)**:
-   - 新增 `health_check()` 主动感知页面活性与异常；
-   - 确保恢复后 Page 状态合法再继续重试流程。
-5. **Controller 核心测试全覆盖 (`test_unit.py`)**:
-   - 新增成功链路与递进重试链路的 Mock 流程单元测试。
+Gemini Browser Client v0.2.1-V1.1 是进入 v0.3 多Worker架构前经过真实环境稳定性验证的冻结版本。
+本版本旨在证明**单网页AI执行节点具备长期稳定运行、会话持久保持、自动异常恢复、可追踪复盘及人工随时可接管的能力**。
 
 ---
 
-## 2. 目录结构
+## 1. 验证目标与验收清单
 
-```text
-C:\code\
-├── main.py                     # CLI 入口（支持单任务与 --loop 常驻循环）
-├── runtime.py                  # Runtime 持续任务循环调度器
-├── controller.py               # 控制器、状态机与异常恢复
-├── browser.py                  # BrowserManager (Playwright 常驻管理与健康检查)
-├── worker_factory.py           # WorkerFactory 工厂类
-├── worker.py                   # BaseWorker 基类与 GeminiWorker
-├── gemini.py                   # 模块别名兼容层
-├── store.py                    # SQLite 状态与 Execution 历史存储 (StateStore)
-├── task.py                     # Task 与 Result 数据协议
-├── parser.py                   # Markdown/JSON 提取与解析
-├── validator.py                # 模式与字段校验器
-├── config.py                   # 配置加载器
-├── logger.py                   # 结构化 JSON 追踪日志记录
-├── requirements.txt            # 项目依赖
-├── config.yaml                 # 配置文件
-├── config.yaml.example         # 配置示例文件
-├── test_unit.py                # 完整单元与流程测试套件
-├── README.md                   # 说明文档
-├── selectors/
-│   └── gemini.yaml             # Gemini 页面选择器映射
-└── data/
-    ├── profile/                # 用户登录持久化目录
-    ├── logs/                   # 结构化运行日志目录 (app.log)
-    ├── screenshots/            # 错误与异常截图
-    ├── results/                # 结果输出目录
-    ├── state.db                # SQLite 任务与执行历史数据库
-    └── test_cases/             # 测试任务定义 (task_001_mvp.json)
-```
+| 验收维度 | 验证项 | 验收标准 | 验证工具/方式 |
+| :--- | :--- | :--- | :--- |
+| **功能闭环** | 登录保持 | 首次人工登录后，后续任务无需重复登录，Cookie/Session持久化在 `./data/profile` | `python main.py` |
+| **功能闭环** | 标准任务闭环 | 支持简单结构化、长文本、复杂嵌套 JSON 各类任务 | `data/test_cases/task_A~D` |
+| **稳定性** | 连续多轮任务 | 连续 10 轮及 100 轮基准任务成功率 ≥ 95% | `python benchmark_runner.py` |
+| **容错自愈** | 异常自动恢复 | 页面失效/浏览器进程断开自动触发热重启并恢复 Profile | `Controller.recover_runtime` |
+| **可观测性** | SQLite Trace | `tasks` 记录任务状态，`executions` 记录每次尝试的 duration 与 error | `python main.py --query-executions` |
+| **可运营性** | GUI 与远程观察 | 支持本地 GUI 与 Linux 远程桌面/VNC 观察执行画面与人工接管 | Chromium 窗口 / VNC |
 
 ---
 
-## 3. 安装与运行
+## 2. 固定验证任务集 (`data/test_cases/`)
 
-### 3.1 依赖安装
+- **Task A (`task_A_simple_json.json`)**: 简单结构化输出，验证基础 JSON Parser 与 Validator。
+- **Task B (`task_B_long_text.json`)**: 长文本对比分析，验证动态等待与 Response 稳定截取机制。
+- **Task C (`task_C_complex_format.json`)**: 嵌套对象与列表结构，验证复杂 JSON 提取。
+- **Task D (`task_D_error_recovery.json`)**: 格式校验约束，验证递进式 Prompt 重试机制。
+
+---
+
+## 3. 运行实机验证
+
+### 3.1 步骤 1：首次人工登录与 Profile 保持
+确保 `config.yaml` 中 `browser.headless: false`，运行：
 ```bash
-pip install -r requirements.txt
-playwright install chromium
+python main.py
+```
+在弹出的浏览器中登录 Google/Gemini 账号。完成后关闭，再次运行验证无需重新登录。
+
+### 3.2 步骤 2：执行单任务验证
+```bash
+# 验证 Task A
+python main.py --task-file "data/test_cases/task_A_simple_json.json"
+
+# 验证 Task B
+python main.py --task-file "data/test_cases/task_B_long_text.json"
 ```
 
-### 3.2 常驻 Worker Loop 模式
+### 3.3 步骤 3：连续稳定性基准压测 (Benchmark)
 ```bash
-python main.py --loop
+# 运行 10 轮连续稳定性测试 (默认 GUI 模式)
+python benchmark_runner.py --rounds 10
+
+# 运行 Headless 模式对比测试
+python benchmark_runner.py --rounds 10 --headless --output "data/results/benchmark_headless.json"
 ```
+测试结束后将在 `data/results/benchmark_report.json` 输出汇总成功率、平均耗时与内存指标。
 
-### 3.3 运行单任务并保留浏览器
+### 3.4 步骤 4：复盘与 Trace 历史查询
 ```bash
-python main.py --task-id "task_003" --goal "总结Python特性" --prompt "请列出Python的三大核心特性并给出简评。" --expected-output '{"features": [], "summary": ""}'
-```
+# 查看任务整体状态
+python main.py --query-task "task_mock_retry"
 
-### 3.4 历史记录与执行查询
-```bash
-# 查询任务汇总状态
-python main.py --query-task "task_003"
-
-# 查询单任务所有重试执行记录 (executions 历史)
-python main.py --query-executions "task_003"
-
-# 列出最近任务
-python main.py --list-tasks
+# 查询单任务所有重试执行过程（包含各尝试耗时与错误记录）
+python main.py --query-executions "task_mock_retry"
 ```
 
 ---
 
-## 4. 测试与验证
+## 4. 远程观察与服务器部署建议
+
+在 Linux 服务器（作为 Worker 节点）上部署时：
+- 推荐使用 `Xvfb` + `x11vnc` / `noVNC` 暴露 Web 界面，以便远程观察浏览器实际渲染与执行过程。
+- 发生异常或需要人工重新登录时，运维人员可通过 VNC 远程接管页面。
+
+---
+
+## 5. 单元与流程测试
 
 ```bash
 python test_unit.py

@@ -1,0 +1,8 @@
+{
+  "id": "task_B_long_text",
+  "goal": "长文本与响应稳定性测试",
+  "prompt": "请详细分析微服务架构与单体架构的优缺点，从性能、维护成本、可扩展性和部署复杂度四个维度进行深入对比，并提供总结建议。",
+  "expected_output": "{\"comparison\": {}, \"recommendation\": \"\"}",
+  "timeout": 180,
+  "retry": 3
+}
