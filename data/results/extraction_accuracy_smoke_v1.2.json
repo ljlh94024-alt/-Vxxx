@@ -1,0 +1,98 @@
+{
+  "timestamp": "2026-08-22T19:45:40",
+  "mode": "gui",
+  "total_rounds": 1,
+  "success_count": 1,
+  "failed_count": 0,
+  "success_rate_percent": 100.0,
+  "total_duration_sec": 15.75,
+  "avg_duration_sec": 13.72,
+  "retry_count": 0,
+  "extraction_verified_count": 1,
+  "extraction_verified_rate_percent": 100.0,
+  "resource_summary": {
+    "python": {
+      "rss_mb_avg": 36.98,
+      "rss_mb_min": 36.98,
+      "rss_mb_max": 36.98,
+      "cpu_percent_avg": 0.0,
+      "cpu_percent_max": 0.0
+    },
+    "browser": {
+      "rss_mb_avg": 881.15,
+      "rss_mb_min": 881.15,
+      "rss_mb_max": 881.15,
+      "cpu_percent_avg": 7.7,
+      "cpu_percent_max": 7.7,
+      "process_count_max": 11
+    },
+    "total": {
+      "rss_mb_avg": 918.13,
+      "rss_mb_min": 918.13,
+      "rss_mb_max": 918.13,
+      "cpu_percent_avg": 7.7,
+      "cpu_percent_max": 7.7
+    }
+  },
+  "round_details": [
+    {
+      "round": 1,
+      "task_id": "task_A_simple_json_r1",
+      "status": "success",
+      "duration": 13.72,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"applications\": [\n        \"人工智能与机器学习\",\n        \"数据科学与数据分析\",\n        \"后端Web开发\",\n        \"自动化脚本\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"applications\": [\n        \"前端Web开发\",\n        \"全栈/后端开发 (Node.js)\",\n        \"跨平台移动应用开发\",\n        \"桌面客户端开发 (Electron)\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"applications\": [\n        \"企业级后端系统\",\n        \"Android移动应用开发\",\n        \"大数据处理 (如 Hadoop、Spark)\",\n        \"金融分布式系统\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 是当今应用最广泛的三大编程语言，分别在人工智能与数据科学、现代 Web 开发以及大型企业级应用中占据主导地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "applications": [
+              "人工智能与机器学习",
+              "数据科学与数据分析",
+              "后端Web开发",
+              "自动化脚本"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "applications": [
+              "前端Web开发",
+              "全栈/后端开发 (Node.js)",
+              "跨平台移动应用开发",
+              "桌面客户端开发 (Electron)"
+            ]
+          },
+          {
+            "name": "Java",
+            "applications": [
+              "企业级后端系统",
+              "Android移动应用开发",
+              "大数据处理 (如 Hadoop、Spark)",
+              "金融分布式系统"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 是当今应用最广泛的三大编程语言，分别在人工智能与数据科学、现代 Web 开发以及大型企业级应用中占据主导地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 17192,
+          "rss_mb": 36.98,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 11,
+          "rss_mb": 881.15,
+          "cpu_percent": 7.7
+        },
+        "total": {
+          "rss_mb": 918.13,
+          "cpu_percent": 7.7
+        }
+      }
+    }
+  ]
+}

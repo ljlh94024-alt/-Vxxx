@@ -1,0 +1,747 @@
+{
+  "timestamp": "2026-08-22T19:50:07",
+  "mode": "headless",
+  "total_rounds": 10,
+  "success_count": 10,
+  "failed_count": 0,
+  "success_rate_percent": 100.0,
+  "total_duration_sec": 242.44,
+  "avg_duration_sec": 22.82,
+  "retry_count": 2,
+  "extraction_verified_count": 10,
+  "extraction_verified_rate_percent": 100.0,
+  "resource_summary": {
+    "python": {
+      "rss_mb_avg": 37.74,
+      "rss_mb_min": 36.73,
+      "rss_mb_max": 38.52,
+      "cpu_percent_avg": 0.77,
+      "cpu_percent_max": 7.7
+    },
+    "browser": {
+      "rss_mb_avg": 1000.39,
+      "rss_mb_min": 704.71,
+      "rss_mb_max": 1203.29,
+      "cpu_percent_avg": 8.53,
+      "cpu_percent_max": 23.1,
+      "process_count_max": 4
+    },
+    "total": {
+      "rss_mb_avg": 1038.13,
+      "rss_mb_min": 741.44,
+      "rss_mb_max": 1241.81,
+      "cpu_percent_avg": 9.3,
+      "cpu_percent_max": 23.1
+    }
+  },
+  "round_details": [
+    {
+      "round": 1,
+      "task_id": "task_A_simple_json_r1",
+      "status": "success",
+      "duration": 133.34,
+      "error": "",
+      "retry_count": 1,
+      "response_raw": "{\"languages\": [{\"name\": \"Python\", \"domains\": [\"人工智能与机器学习\", \"数据分析与科学计算\", \"后端Web开发\", \"自动化运维与脚本编程\"]}, {\"name\": \"JavaScript\", \"domains\": [\"前端Web开发\", \"全栈/后端开发(Node.js)\", \"跨平台移动应用开发\", \"桌面端应用开发(Electron)\"]}, {\"name\": \"Java\", \"domains\": [\"企业级后端系统\", \"Android移动应用开发\", \"大数据处理架构\", \"金融与分布式系统\"]}], \"summary\": \"Python、JavaScript与Java是目前全球应用最广泛的三种编程语言，分别在AI/数据科学、Web全栈生态及大型企业级开发领域占据主导地位。\"}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "domains": [
+              "人工智能与机器学习",
+              "数据分析与科学计算",
+              "后端Web开发",
+              "自动化运维与脚本编程"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "domains": [
+              "前端Web开发",
+              "全栈/后端开发(Node.js)",
+              "跨平台移动应用开发",
+              "桌面端应用开发(Electron)"
+            ]
+          },
+          {
+            "name": "Java",
+            "domains": [
+              "企业级后端系统",
+              "Android移动应用开发",
+              "大数据处理架构",
+              "金融与分布式系统"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript与Java是目前全球应用最广泛的三种编程语言，分别在AI/数据科学、Web全栈生态及大型企业级开发领域占据主导地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 36.73,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 704.71,
+          "cpu_percent": 7.7
+        },
+        "total": {
+          "rss_mb": 741.44,
+          "cpu_percent": 7.7
+        }
+      }
+    },
+    {
+      "round": 2,
+      "task_id": "task_B_long_text_r2",
+      "status": "success",
+      "duration": 13.69,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "{\n\"comparison\": {\n\"performance\": {\n\"monolithic\": {\n\"advantages\": \"进程内通信采用本地内存调用，网络延迟极低，数据传输开销小；事务处理主要依赖单机关系型数据库的本地ACID事务，吞吐效率高且一致性强。\",\n\"disadvantages\": \"单模块的资源竞争（如CPU密集型任务或内存泄漏）可能直接拖慢整个应用；随着代码库与连接池规模增大，资源利用往往不够精细化，导致整体吞吐上限受限。\"\n},\n\"microservices\": {\n\"advantages\": \"可根据每个服务的性能瓶颈单独配置硬件资源（如为计算密集型分配GPU/高CPU实例，为IO密集型分配大内存/高并发连接），实现极致的资源利用率。\",\n\"disadvantages\": \"服务间调用严重依赖网络通信（REST/gRPC/消息队列），存在网络延迟与序列化/反序列化开销；跨服务数据一致性需要分布式事务（如Saga模式），进一步降低了高并发写入的响应速度。\"\n}\n},\n\"maintenance_cost\": {\n\"monolithic\": {\n\"advantages\": \"初期开发及维护成本极低；全局代码易于在IDE中进行全量检索、重构与跟踪；统一的技术栈降低了团队的招聘和培训门槛。\",\n\"disadvantages\": \"随着业务规模扩张，系统容易退化为'大泥球'架构（Big Ball of Mud），模块间高度耦合导致代码可读性与新人上手成本剧增；局部变更可能引发无法预测的全局副作用，回归测试成本高。\"\n},\n\"microservices\": {\n\"advantages\": \"服务边界清晰且高内聚、低耦合，单个服务代码库体量小，易于理解与重构；不同团队可根据具体场景选用最适合的技术栈与数据库，技术债务隔离性好。\",\n\"disadvantages\": \"组织协作成本大幅上升（如API版本控制与契约测试）；需要引入全链路追踪（APM）、服务网格、集中式日志等复杂的治理平台，基础设施与运维管理成本高昂。\"\n}\n},\n\"scalability\": {\n\"monolithic\": {\n\"advantages\": \"水平扩展实现简单，只需在负载均衡器后挂载多个相同的应用完整实例，不需要处理服务间的动态寻址与拓扑变化。\",\n\"disadvantages\": \"只能以整个应用为单位进行水平扩容，存在严重的资源浪费（例如仅有图像处理模块需要扩容，却必须复制整个单体）；受单库并发与锁竞争制约，垂直扩展容易触顶。\"\n},\n\"microservices\": {\n\"advantages\": \"支持细粒度的精准横向扩展，仅针对高负载的特定服务（如秒杀、支付）增加容器实例，弹性和成本效益极高；支持异构扩展与多数据源独立水平分片。\",\n\"disadvantages\": \"弹性伸缩依赖自动化编排体系（如Kubernetes HPA/KEDA）；分布式环境下需要配套动态服务发现、配置中心及细粒度的流量控制机制，扩展链路的治理复杂度高。\"\n}\n},\n\"deployment_complexity\": {\n\"monolithic\": {\n\"advantages\": \"部署流程极为直接，仅需构建单个产物（如JAR、WAR、单二进制文件或单一容器镜像）并推送至服务器，依赖环境单一，无复杂的跨服务依赖启动顺序问题。\",\n\"disadvantages\": \"任何微小的代码变更都必须触发整个系统的全量重新构建与全量发布；构建耗时随着项目变大而显著增加；部署期间缺乏故障隔离，一旦出现致命Bug可能导致全站宕机，回滚成本大。\"\n},\n\"microservices\": {\n\"advantages\": \"各个微服务可由独立团队实现解耦的持续集成与持续部署（CI/CD），支持灰度发布、蓝绿发布和金丝雀部署；单个服务发布失败仅影响局部功能，回滚快速灵活。\",\n\"disadvantages\": \"部署拓扑庞大，涉及大量独立容器、镜像仓库、网络策略与服务网格配置；多服务间的版本兼容性管理与依赖发布顺序控制极为复杂，对CI/CD流水线的自动化程度要求苛刻。\"\n}\n}\n},\n\"recommendation\": \"选型应遵循'业务规模驱动与康威定律'原则。对于处于初创期、业务模型尚未定型、团队规模在10人以内的项目，建议首选模块化单体架构（Modular Monolith），以最低的认知负载和运维成本快速验证市场需求；当业务规模爆发、业务边界高度清晰、多团队协作出现代码合并与发布冲突，且具备成熟的基础设施运维团队时，再采用'绞杀者模式'（Strangler Fig Pattern）逐步将单体拆分为微服务架构，避免盲目过早微服务化带来的分布式治理危机。\"\n}",
+      "parsed_result": {
+        "comparison": {
+          "performance": {
+            "monolithic": {
+              "advantages": "进程内通信采用本地内存调用，网络延迟极低，数据传输开销小；事务处理主要依赖单机关系型数据库的本地ACID事务，吞吐效率高且一致性强。",
+              "disadvantages": "单模块的资源竞争（如CPU密集型任务或内存泄漏）可能直接拖慢整个应用；随着代码库与连接池规模增大，资源利用往往不够精细化，导致整体吞吐上限受限。"
+            },
+            "microservices": {
+              "advantages": "可根据每个服务的性能瓶颈单独配置硬件资源（如为计算密集型分配GPU/高CPU实例，为IO密集型分配大内存/高并发连接），实现极致的资源利用率。",
+              "disadvantages": "服务间调用严重依赖网络通信（REST/gRPC/消息队列），存在网络延迟与序列化/反序列化开销；跨服务数据一致性需要分布式事务（如Saga模式），进一步降低了高并发写入的响应速度。"
+            }
+          },
+          "maintenance_cost": {
+            "monolithic": {
+              "advantages": "初期开发及维护成本极低；全局代码易于在IDE中进行全量检索、重构与跟踪；统一的技术栈降低了团队的招聘和培训门槛。",
+              "disadvantages": "随着业务规模扩张，系统容易退化为'大泥球'架构（Big Ball of Mud），模块间高度耦合导致代码可读性与新人上手成本剧增；局部变更可能引发无法预测的全局副作用，回归测试成本高。"
+            },
+            "microservices": {
+              "advantages": "服务边界清晰且高内聚、低耦合，单个服务代码库体量小，易于理解与重构；不同团队可根据具体场景选用最适合的技术栈与数据库，技术债务隔离性好。",
+              "disadvantages": "组织协作成本大幅上升（如API版本控制与契约测试）；需要引入全链路追踪（APM）、服务网格、集中式日志等复杂的治理平台，基础设施与运维管理成本高昂。"
+            }
+          },
+          "scalability": {
+            "monolithic": {
+              "advantages": "水平扩展实现简单，只需在负载均衡器后挂载多个相同的应用完整实例，不需要处理服务间的动态寻址与拓扑变化。",
+              "disadvantages": "只能以整个应用为单位进行水平扩容，存在严重的资源浪费（例如仅有图像处理模块需要扩容，却必须复制整个单体）；受单库并发与锁竞争制约，垂直扩展容易触顶。"
+            },
+            "microservices": {
+              "advantages": "支持细粒度的精准横向扩展，仅针对高负载的特定服务（如秒杀、支付）增加容器实例，弹性和成本效益极高；支持异构扩展与多数据源独立水平分片。",
+              "disadvantages": "弹性伸缩依赖自动化编排体系（如Kubernetes HPA/KEDA）；分布式环境下需要配套动态服务发现、配置中心及细粒度的流量控制机制，扩展链路的治理复杂度高。"
+            }
+          },
+          "deployment_complexity": {
+            "monolithic": {
+              "advantages": "部署流程极为直接，仅需构建单个产物（如JAR、WAR、单二进制文件或单一容器镜像）并推送至服务器，依赖环境单一，无复杂的跨服务依赖启动顺序问题。",
+              "disadvantages": "任何微小的代码变更都必须触发整个系统的全量重新构建与全量发布；构建耗时随着项目变大而显著增加；部署期间缺乏故障隔离，一旦出现致命Bug可能导致全站宕机，回滚成本大。"
+            },
+            "microservices": {
+              "advantages": "各个微服务可由独立团队实现解耦的持续集成与持续部署（CI/CD），支持灰度发布、蓝绿发布和金丝雀部署；单个服务发布失败仅影响局部功能，回滚快速灵活。",
+              "disadvantages": "部署拓扑庞大，涉及大量独立容器、镜像仓库、网络策略与服务网格配置；多服务间的版本兼容性管理与依赖发布顺序控制极为复杂，对CI/CD流水线的自动化程度要求苛刻。"
+            }
+          }
+        },
+        "recommendation": "选型应遵循'业务规模驱动与康威定律'原则。对于处于初创期、业务模型尚未定型、团队规模在10人以内的项目，建议首选模块化单体架构（Modular Monolith），以最低的认知负载和运维成本快速验证市场需求；当业务规模爆发、业务边界高度清晰、多团队协作出现代码合并与发布冲突，且具备成熟的基础设施运维团队时，再采用'绞杀者模式'（Strangler Fig Pattern）逐步将单体拆分为微服务架构，避免盲目过早微服务化带来的分布式治理危机。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 37.17,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 842.17,
+          "cpu_percent": 15.4
+        },
+        "total": {
+          "rss_mb": 879.34,
+          "cpu_percent": 15.4
+        }
+      }
+    },
+    {
+      "round": 3,
+      "task_id": "task_C_complex_format_r3",
+      "status": "success",
+      "duration": 9.14,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"order_id\": \"ORD-20260822-984210\",\n  \"created_at\": \"2026-08-22T20:48:39Z\",\n  \"status\": \"PAID\",\n  \"user\": {\n    \"user_id\": \"USR-104928\",\n    \"username\": \"alex_chen\",\n    \"email\": \"alex.chen@example.com\",\n    \"phone\": \"+86-13800138000\",\n    \"shipping_address\": {\n      \"recipient_name\": \"Alex Chen\",\n      \"phone\": \"+86-13800138000\",\n      \"province\": \"Guangdong\",\n      \"city\": \"Shenzhen\",\n      \"district\": \"Nanshan\",\n      \"address_line\": \"No. 123 Science and Technology South Road, Suite 402\",\n      \"postal_code\": \"518057\"\n    }\n  },\n  \"items\": [\n    {\n      \"item_id\": \"ITEM-001\",\n      \"sku\": \"SKU-PHN-PRO-256\",\n      \"title\": \"Flagship Smartphone Pro (256GB, Obsidian Black)\",\n      \"unit_price\": 999.00,\n      \"quantity\": 1,\n      \"subtotal\": 999.00,\n      \"attributes\": {\n        \"color\": \"Obsidian Black\",\n        \"storage\": \"256GB\"\n      }\n    },\n    {\n      \"item_id\": \"ITEM-002\",\n      \"sku\": \"SKU-ACC-CASE-CL\",\n      \"title\": \"Ultra-Slim Magnetic Protective Case\",\n      \"unit_price\": 29.99,\n      \"quantity\": 2,\n      \"subtotal\": 59.98,\n      \"attributes\": {\n        \"material\": \"Polycarbonate\",\n        \"type\": \"Clear\"\n      }\n    }\n  ],\n  \"payment\": {\n    \"payment_id\": \"PAY-20260822-77192\",\n    \"payment_method\": \"CREDIT_CARD\",\n    \"payment_channel\": \"Stripe\",\n    \"transaction_reference\": \"ch_3N84xKL90123uio\",\n    \"status\": \"COMPLETED\",\n    \"currency\": \"USD\",\n    \"amount_summary\": {\n      \"items_subtotal\": 1058.98,\n      \"shipping_fee\": 0.00,\n      \"discount_amount\": 50.00,\n      \"tax_amount\": 80.72,\n      \"total_paid\": 1089.70\n    },\n    \"paid_at\": \"2026-08-22T20:50:12Z\"\n  }\n}",
+      "parsed_result": {
+        "order_id": "ORD-20260822-984210",
+        "created_at": "2026-08-22T20:48:39Z",
+        "status": "PAID",
+        "user": {
+          "user_id": "USR-104928",
+          "username": "alex_chen",
+          "email": "alex.chen@example.com",
+          "phone": "+86-13800138000",
+          "shipping_address": {
+            "recipient_name": "Alex Chen",
+            "phone": "+86-13800138000",
+            "province": "Guangdong",
+            "city": "Shenzhen",
+            "district": "Nanshan",
+            "address_line": "No. 123 Science and Technology South Road, Suite 402",
+            "postal_code": "518057"
+          }
+        },
+        "items": [
+          {
+            "item_id": "ITEM-001",
+            "sku": "SKU-PHN-PRO-256",
+            "title": "Flagship Smartphone Pro (256GB, Obsidian Black)",
+            "unit_price": 999.0,
+            "quantity": 1,
+            "subtotal": 999.0,
+            "attributes": {
+              "color": "Obsidian Black",
+              "storage": "256GB"
+            }
+          },
+          {
+            "item_id": "ITEM-002",
+            "sku": "SKU-ACC-CASE-CL",
+            "title": "Ultra-Slim Magnetic Protective Case",
+            "unit_price": 29.99,
+            "quantity": 2,
+            "subtotal": 59.98,
+            "attributes": {
+              "material": "Polycarbonate",
+              "type": "Clear"
+            }
+          }
+        ],
+        "payment": {
+          "payment_id": "PAY-20260822-77192",
+          "payment_method": "CREDIT_CARD",
+          "payment_channel": "Stripe",
+          "transaction_reference": "ch_3N84xKL90123uio",
+          "status": "COMPLETED",
+          "currency": "USD",
+          "amount_summary": {
+            "items_subtotal": 1058.98,
+            "shipping_fee": 0.0,
+            "discount_amount": 50.0,
+            "tax_amount": 80.72,
+            "total_paid": 1089.7
+          },
+          "paid_at": "2026-08-22T20:50:12Z"
+        }
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 37.36,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 907.18,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 944.54,
+          "cpu_percent": 0.0
+        }
+      }
+    },
+    {
+      "round": 4,
+      "task_id": "task_A_simple_json_r4",
+      "status": "success",
+      "duration": 9.36,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"applications\": [\n        \"人工智能与机器学习\",\n        \"数据分析与科学计算\",\n        \"后端Web开发\",\n        \"自动化运维与脚本编写\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"applications\": [\n        \"前端Web交互与开发\",\n        \"全栈/服务端开发（Node.js）\",\n        \"跨平台移动应用与桌面端开发\",\n        \"网页游戏开发\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"applications\": [\n        \"大型企业级系统与微服务\",\n        \"Android移动应用开发\",\n        \"大数据处理框架\",\n        \"金融与分布式系统后端\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 分别在人工智能/数据科学、现代Web开发以及企业级系统/移动开发领域占据核心主导地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "applications": [
+              "人工智能与机器学习",
+              "数据分析与科学计算",
+              "后端Web开发",
+              "自动化运维与脚本编写"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "applications": [
+              "前端Web交互与开发",
+              "全栈/服务端开发（Node.js）",
+              "跨平台移动应用与桌面端开发",
+              "网页游戏开发"
+            ]
+          },
+          {
+            "name": "Java",
+            "applications": [
+              "大型企业级系统与微服务",
+              "Android移动应用开发",
+              "大数据处理框架",
+              "金融与分布式系统后端"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 分别在人工智能/数据科学、现代Web开发以及企业级系统/移动开发领域占据核心主导地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 37.61,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 962.79,
+          "cpu_percent": 23.1
+        },
+        "total": {
+          "rss_mb": 1000.4,
+          "cpu_percent": 23.1
+        }
+      }
+    },
+    {
+      "round": 5,
+      "task_id": "task_B_long_text_r5",
+      "status": "success",
+      "duration": 11.86,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "{\n\"comparison\": {\n\"performance\": {\n\"monolithic\": {\n\"pros\": \"模块间调用通过内存直接完成（方法/进程内调用），无额外网络序列化与传输开销，单次请求端到端延迟通常更低。\",\n\"cons\": \"资源竞争严重，无法针对特定计算密集或I/O密集模块单独优化运行时配置；局部资源耗尽会拉低整体吞吐量。\"\n},\n\"microservices\": {\n\"pros\": \"可针对不同业务特征的服务分配最优计算资源与异构技术栈（如专用缓存、GPU加速），高并发场景下资源利用效率更高。\",\n\"cons\": \"跨服务通信依赖RPC或HTTP，引入额外的网络延迟、序列化/反序列化开销以及分布式事务处理成本。\"\n}\n},\n\"maintenance_cost\": {\n\"monolithic\": {\n\"pros\": \"代码库集中，本地排查与Debug直观，初期技术栈单一且无需维护复杂的跨服务基础设施与治理体系。\",\n\"cons\": \"随着业务演进代码高度耦合（巨石泥球），模块边界模糊，新成员上手曲线陡峭，修改底层共享模块容易引发不可预知的全系统回归风险。\"\n},\n\"microservices\": {\n\"pros\": \"服务边界清晰，单一服务代码体量小，遵循领域驱动设计（DDD），团队职责高度自治，技术栈选型灵活。\",\n\"cons\": \"需要引入链路追踪（Tracing）、分布式日志集中管理、服务网格（Service Mesh）等复杂基础设施，跨服务调用链路问题定位排查成本极高。\"\n}\n},\n\"scalability\": {\n\"monolithic\": {\n\"pros\": \"水平扩展实现简单，只需在负载均衡器后复制整个应用实例即可扩容。\",\n\"cons\": \"只能进行整体粗粒度扩容，单点瓶颈服务会导致整体实例被迫冗余复制，硬件资源浪费明显；存在数据库单点连接瓶颈。\"\n},\n\"microservices\": {\n\"pros\": \"细粒度按需伸缩，高负载服务可独立扩容，支持多租户与混合云弹性伸缩策略，架构具备极强的业务演进扩展能力。\",\n\"cons\": \"分布式数据一致性（CAP定理制约）维护复杂，分库分表与跨库查询难度大，需依赖消息队列与最终一致性模式。\"\n}\n},\n\"deployment_complexity\": {\n\"monolithic\": {\n\"pros\": \"交付产物单一（单个JAR/WAR/镜像），CI/CD流水线简单，发布流程线性且易于管控。\",\n\"cons\": \"全量发布风险高，单个模块的代码Bug可能导致全系统崩溃；构建与发布耗时长，难以支持高频敏捷交付。\"\n},\n\"microservices\": {\n\"pros\": \"各服务独立编译、测试与发布，支持金丝雀发布、蓝绿部署等渐进式交付策略，单服务发布故障影响域小且回滚快。\",\n\"cons\": \"服务数量多导致依赖拓扑复杂，需要强大的容器编排（如Kubernetes）、API网关、配置中心与自动化流水线支持，运维复杂度呈指数级上升。\"\n}\n}\n},\n\"recommendation\": \"在业务处于探索期、初创期、团队规模较小（<15人）或业务逻辑边界尚未清晰时，优先采用单体架构（或模块化单体），以极低的运维成本换取产品迭代速度；当业务规模爆发式增长、团队扩张分化出多个独立交付小组、系统吞吐量面临严重局部瓶颈且基础设施基建（K8s/DevOps/监控链路）成熟时，再通过DDD拆分逐步演进至微服务架构。\"\n}",
+      "parsed_result": {
+        "comparison": {
+          "performance": {
+            "monolithic": {
+              "pros": "模块间调用通过内存直接完成（方法/进程内调用），无额外网络序列化与传输开销，单次请求端到端延迟通常更低。",
+              "cons": "资源竞争严重，无法针对特定计算密集或I/O密集模块单独优化运行时配置；局部资源耗尽会拉低整体吞吐量。"
+            },
+            "microservices": {
+              "pros": "可针对不同业务特征的服务分配最优计算资源与异构技术栈（如专用缓存、GPU加速），高并发场景下资源利用效率更高。",
+              "cons": "跨服务通信依赖RPC或HTTP，引入额外的网络延迟、序列化/反序列化开销以及分布式事务处理成本。"
+            }
+          },
+          "maintenance_cost": {
+            "monolithic": {
+              "pros": "代码库集中，本地排查与Debug直观，初期技术栈单一且无需维护复杂的跨服务基础设施与治理体系。",
+              "cons": "随着业务演进代码高度耦合（巨石泥球），模块边界模糊，新成员上手曲线陡峭，修改底层共享模块容易引发不可预知的全系统回归风险。"
+            },
+            "microservices": {
+              "pros": "服务边界清晰，单一服务代码体量小，遵循领域驱动设计（DDD），团队职责高度自治，技术栈选型灵活。",
+              "cons": "需要引入链路追踪（Tracing）、分布式日志集中管理、服务网格（Service Mesh）等复杂基础设施，跨服务调用链路问题定位排查成本极高。"
+            }
+          },
+          "scalability": {
+            "monolithic": {
+              "pros": "水平扩展实现简单，只需在负载均衡器后复制整个应用实例即可扩容。",
+              "cons": "只能进行整体粗粒度扩容，单点瓶颈服务会导致整体实例被迫冗余复制，硬件资源浪费明显；存在数据库单点连接瓶颈。"
+            },
+            "microservices": {
+              "pros": "细粒度按需伸缩，高负载服务可独立扩容，支持多租户与混合云弹性伸缩策略，架构具备极强的业务演进扩展能力。",
+              "cons": "分布式数据一致性（CAP定理制约）维护复杂，分库分表与跨库查询难度大，需依赖消息队列与最终一致性模式。"
+            }
+          },
+          "deployment_complexity": {
+            "monolithic": {
+              "pros": "交付产物单一（单个JAR/WAR/镜像），CI/CD流水线简单，发布流程线性且易于管控。",
+              "cons": "全量发布风险高，单个模块的代码Bug可能导致全系统崩溃；构建与发布耗时长，难以支持高频敏捷交付。"
+            },
+            "microservices": {
+              "pros": "各服务独立编译、测试与发布，支持金丝雀发布、蓝绿部署等渐进式交付策略，单服务发布故障影响域小且回滚快。",
+              "cons": "服务数量多导致依赖拓扑复杂，需要强大的容器编排（如Kubernetes）、API网关、配置中心与自动化流水线支持，运维复杂度呈指数级上升。"
+            }
+          }
+        },
+        "recommendation": "在业务处于探索期、初创期、团队规模较小（<15人）或业务逻辑边界尚未清晰时，优先采用单体架构（或模块化单体），以极低的运维成本换取产品迭代速度；当业务规模爆发式增长、团队扩张分化出多个独立交付小组、系统吞吐量面临严重局部瓶颈且基础设施基建（K8s/DevOps/监控链路）成熟时，再通过DDD拆分逐步演进至微服务架构。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 37.68,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 1006.33,
+          "cpu_percent": 8.3
+        },
+        "total": {
+          "rss_mb": 1044.01,
+          "cpu_percent": 8.3
+        }
+      }
+    },
+    {
+      "round": 6,
+      "task_id": "task_C_complex_format_r6",
+      "status": "success",
+      "duration": 9.28,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"order_id\": \"ORD-20260822-98765\",\n  \"user\": {\n    \"user_id\": \"USR-10482\",\n    \"name\": \"张三\",\n    \"email\": \"zhangsan@example.com\",\n    \"phone\": \"+86-13800138000\",\n    \"shipping_address\": {\n      \"recipient_name\": \"张三\",\n      \"phone\": \"+86-13800138000\",\n      \"province\": \"北京市\",\n      \"city\": \"北京市\",\n      \"district\": \"海淀区\",\n      \"street_address\": \"中关村南大街1号院\",\n      \"postal_code\": \"100081\"\n    }\n  },\n  \"items\": [\n    {\n      \"item_id\": \"ITEM-50123\",\n      \"sku\": \"SKU-PHN-BLK-256\",\n      \"product_name\": \"智能手机 Pro (256GB 黑色)\",\n      \"unit_price\": 5999.00,\n      \"quantity\": 1,\n      \"currency\": \"CNY\",\n      \"subtotal\": 5999.00\n    },\n    {\n      \"item_id\": \"ITEM-50124\",\n      \"sku\": \"SKU-ACC-CASE-CLR\",\n      \"product_name\": \"磁吸透明保护壳\",\n      \"unit_price\": 129.00,\n      \"quantity\": 2,\n      \"currency\": \"CNY\",\n      \"subtotal\": 258.00\n    }\n  ],\n  \"payment\": {\n    \"payment_id\": \"PAY-20260822-00431\",\n    \"method\": \"wechat_pay\",\n    \"status\": \"PAID\",\n    \"currency\": \"CNY\",\n    \"amount\": {\n      \"subtotal\": 6257.00,\n      \"shipping_fee\": 0.00,\n      \"discount\": 50.00,\n      \"total_paid\": 6207.00\n    },\n    \"transaction_time\": \"2026-08-22T20:49:14+08:00\"\n  }\n}",
+      "parsed_result": {
+        "order_id": "ORD-20260822-98765",
+        "user": {
+          "user_id": "USR-10482",
+          "name": "张三",
+          "email": "zhangsan@example.com",
+          "phone": "+86-13800138000",
+          "shipping_address": {
+            "recipient_name": "张三",
+            "phone": "+86-13800138000",
+            "province": "北京市",
+            "city": "北京市",
+            "district": "海淀区",
+            "street_address": "中关村南大街1号院",
+            "postal_code": "100081"
+          }
+        },
+        "items": [
+          {
+            "item_id": "ITEM-50123",
+            "sku": "SKU-PHN-BLK-256",
+            "product_name": "智能手机 Pro (256GB 黑色)",
+            "unit_price": 5999.0,
+            "quantity": 1,
+            "currency": "CNY",
+            "subtotal": 5999.0
+          },
+          {
+            "item_id": "ITEM-50124",
+            "sku": "SKU-ACC-CASE-CLR",
+            "product_name": "磁吸透明保护壳",
+            "unit_price": 129.0,
+            "quantity": 2,
+            "currency": "CNY",
+            "subtotal": 258.0
+          }
+        ],
+        "payment": {
+          "payment_id": "PAY-20260822-00431",
+          "method": "wechat_pay",
+          "status": "PAID",
+          "currency": "CNY",
+          "amount": {
+            "subtotal": 6257.0,
+            "shipping_fee": 0.0,
+            "discount": 50.0,
+            "total_paid": 6207.0
+          },
+          "transaction_time": "2026-08-22T20:49:14+08:00"
+        }
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 37.84,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 1018.76,
+          "cpu_percent": 7.7
+        },
+        "total": {
+          "rss_mb": 1056.6,
+          "cpu_percent": 7.7
+        }
+      }
+    },
+    {
+      "round": 7,
+      "task_id": "task_A_simple_json_r7",
+      "status": "success",
+      "duration": 8.17,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"domains\": [\"人工智能与机器学习\", \"数据分析与科学计算\", \"后端开发\", \"自动化脚本\"]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"domains\": [\"前端 Web 开发\", \"全栈开发 (Node.js)\", \"移动应用开发 (React Native)\", \"轻量级桌面应用 (Electron)\"]\n    },\n    {\n      \"name\": \"Java\",\n      \"domains\": [\"企业级系统后端\", \"Android 应用开发\", \"大数据处理 (Hadoop, Spark)\", \"金融与高并发系统\"]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 分别在人工智能/数据科学、Web 全栈开发以及企业级系统/移动端构建中占据主导地位，是当今软件开发领域最基础且应用最广泛的三门编程语言。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "domains": [
+              "人工智能与机器学习",
+              "数据分析与科学计算",
+              "后端开发",
+              "自动化脚本"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "domains": [
+              "前端 Web 开发",
+              "全栈开发 (Node.js)",
+              "移动应用开发 (React Native)",
+              "轻量级桌面应用 (Electron)"
+            ]
+          },
+          {
+            "name": "Java",
+            "domains": [
+              "企业级系统后端",
+              "Android 应用开发",
+              "大数据处理 (Hadoop, Spark)",
+              "金融与高并发系统"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 分别在人工智能/数据科学、Web 全栈开发以及企业级系统/移动端构建中占据主导地位，是当今软件开发领域最基础且应用最广泛的三门编程语言。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 38.01,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 1063.79,
+          "cpu_percent": 7.7
+        },
+        "total": {
+          "rss_mb": 1101.8,
+          "cpu_percent": 7.7
+        }
+      }
+    },
+    {
+      "round": 8,
+      "task_id": "task_B_long_text_r8",
+      "status": "success",
+      "duration": 13.31,
+      "error": "",
+      "retry_count": 1,
+      "response_raw": "{\n\"comparison\": {\n\"performance\": {\n\"monolithic\": {\n\"advantages\": \"模块间通过进程内内存调用，通信延迟极低；无需处理网络分区或跨服务数据序列化开销；本地事务（ACID）处理效率高且一致性强。\",\n\"disadvantages\": \"由于所有模块共享同一进程资源，单一模块的高并发或内存泄漏可能拖慢整个应用的响应速度；无法针对特定高频计算模块单独优化底层运行时环境或硬件资源。\"\n},\n\"microservices\": {\n\"advantages\": \"可针对计算密集型或 I/O 密集型服务配置专属硬件与独立资源池，实现关键业务性能的最大化隔离与精准调优。\",\n\"disadvantages\": \"依赖网络 RPC/REST 或消息队列进行服务间通信，存在网络延迟、序列化/反序列化开销以及服务网格代理损耗；分布式事务（如 Saga/TCC）引入了最终一致性等待和补偿延迟。\"\n}\n},\n\"maintenance_cost\": {\n\"monolithic\": {\n\"advantages\": \"技术栈统一，开发人员心智模型单一；代码仓库集中，跨模块重构、全局搜索和本地单步调试难度低；前期学习曲线平缓。\",\n\"disadvantages\": \"随业务膨胀容易演变为'大泥球'（Big Ball of Mud），代码边界模糊、高耦合；新人熟悉全量代码周期长；单个模块代码异构或升级基础库可能引发全局回归测试。\"\n},\n\"microservices\": {\n\"advantages\": \"服务边界清晰且符合高内聚低耦合原则；各团队拥有独立的代码库与自治权；技术栈可异构化选择，局部技术重构或框架升级风险可控。\",\n\"disadvantages\": \"接口契约变更管理成本高（需维护向前/向后兼容性）；分布式链路排错、跨服务日志聚合（如 APM/Tracing）复杂度高；基础设施团队需投入大量精力维护公共库和治理平台。\"\n}\n},\n\"scalability\": {\n\"monolithic\": {\n\"advantages\": \"水平扩展实现直观，通过在负载均衡器后挂载多个完整实例副本即可完成整体扩容。\",\n\"disadvantages\": \"扩展粒度粗，即使仅单个功能模块面临瓶颈，也必须完整复制整个庞大应用及其依赖，造成计算与内存资源的严重浪费；数据库连接池容易因全量实例扩展而迅速耗尽。\"\n},\n\"microservices\": {\n\"advantages\": \"支持按需、细粒度弹性伸缩，瓶颈服务可独立扩容数十倍而不影响轻量级服务；天然适配容器化与 Serverless/K8s 自动伸缩（HPA/KEDA）；数据库可按领域边界独立拆分分库。\",\n\"disadvantages\": \"分布式数据拆分导致跨库关联查询（JOIN）困难，需要依赖数据冗余、事件驱动聚合（CQRS）或数据同步中间件，增加了架构整体的扩展设计门槛。\"\n}\n},\n\"deployment_complexity\": {\n\"monolithic\": {\n\"advantages\": \"构建产物单一（单个可执行文件/容器镜像），部署管道结构简单，发布流程原子化，回滚操作直接且可控。\",\n\"disadvantages\": \"全量发布风险高（'牵一发而动全身'），微小改动需重新构建与部署全量应用；发布周期被迫拉长，阻碍高频敏捷交付；金丝雀发布和蓝绿部署粒度无法细化到特定功能。\"\n},\n\"microservices\": {\n\"advantages\": \"支持独立且高频的持续交付与持续部署（CI/CD），单个服务发布失败仅影响局部；易于实现细粒度的蓝绿部署、灰度发布与快速热修复。\",\n\"disadvantages\": \"对 DevOps 自动化基础设施依赖极高；需要管理复杂的服务注册发现、配置中心、API 网关、服务网格（Service Mesh）及分布式依赖编排；服务版本碎片化带来的环境一致性维护成本巨大。\"\n}\n}\n},\n\"recommendation\": \"在业务处于从 0 到 1 验证期、团队规模较小（通常少于 10-15 人）或领域边界尚未稳定时，优先推荐采用模块化单体架构（Modular Monolith），以最低的运维基础设施成本快速试错与迭代。当业务边界明确、团队规模按领域划分（多团队协作）、部分业务模块出现显著差异化的伸缩与性能瓶颈，且具备成熟的 DevOps/SRE 治理能力时，再平滑演进为微服务架构。\"\n}",
+      "parsed_result": {
+        "comparison": {
+          "performance": {
+            "monolithic": {
+              "advantages": "模块间通过进程内内存调用，通信延迟极低；无需处理网络分区或跨服务数据序列化开销；本地事务（ACID）处理效率高且一致性强。",
+              "disadvantages": "由于所有模块共享同一进程资源，单一模块的高并发或内存泄漏可能拖慢整个应用的响应速度；无法针对特定高频计算模块单独优化底层运行时环境或硬件资源。"
+            },
+            "microservices": {
+              "advantages": "可针对计算密集型或 I/O 密集型服务配置专属硬件与独立资源池，实现关键业务性能的最大化隔离与精准调优。",
+              "disadvantages": "依赖网络 RPC/REST 或消息队列进行服务间通信，存在网络延迟、序列化/反序列化开销以及服务网格代理损耗；分布式事务（如 Saga/TCC）引入了最终一致性等待和补偿延迟。"
+            }
+          },
+          "maintenance_cost": {
+            "monolithic": {
+              "advantages": "技术栈统一，开发人员心智模型单一；代码仓库集中，跨模块重构、全局搜索和本地单步调试难度低；前期学习曲线平缓。",
+              "disadvantages": "随业务膨胀容易演变为'大泥球'（Big Ball of Mud），代码边界模糊、高耦合；新人熟悉全量代码周期长；单个模块代码异构或升级基础库可能引发全局回归测试。"
+            },
+            "microservices": {
+              "advantages": "服务边界清晰且符合高内聚低耦合原则；各团队拥有独立的代码库与自治权；技术栈可异构化选择，局部技术重构或框架升级风险可控。",
+              "disadvantages": "接口契约变更管理成本高（需维护向前/向后兼容性）；分布式链路排错、跨服务日志聚合（如 APM/Tracing）复杂度高；基础设施团队需投入大量精力维护公共库和治理平台。"
+            }
+          },
+          "scalability": {
+            "monolithic": {
+              "advantages": "水平扩展实现直观，通过在负载均衡器后挂载多个完整实例副本即可完成整体扩容。",
+              "disadvantages": "扩展粒度粗，即使仅单个功能模块面临瓶颈，也必须完整复制整个庞大应用及其依赖，造成计算与内存资源的严重浪费；数据库连接池容易因全量实例扩展而迅速耗尽。"
+            },
+            "microservices": {
+              "advantages": "支持按需、细粒度弹性伸缩，瓶颈服务可独立扩容数十倍而不影响轻量级服务；天然适配容器化与 Serverless/K8s 自动伸缩（HPA/KEDA）；数据库可按领域边界独立拆分分库。",
+              "disadvantages": "分布式数据拆分导致跨库关联查询（JOIN）困难，需要依赖数据冗余、事件驱动聚合（CQRS）或数据同步中间件，增加了架构整体的扩展设计门槛。"
+            }
+          },
+          "deployment_complexity": {
+            "monolithic": {
+              "advantages": "构建产物单一（单个可执行文件/容器镜像），部署管道结构简单，发布流程原子化，回滚操作直接且可控。",
+              "disadvantages": "全量发布风险高（'牵一发而动全身'），微小改动需重新构建与部署全量应用；发布周期被迫拉长，阻碍高频敏捷交付；金丝雀发布和蓝绿部署粒度无法细化到特定功能。"
+            },
+            "microservices": {
+              "advantages": "支持独立且高频的持续交付与持续部署（CI/CD），单个服务发布失败仅影响局部；易于实现细粒度的蓝绿部署、灰度发布与快速热修复。",
+              "disadvantages": "对 DevOps 自动化基础设施依赖极高；需要管理复杂的服务注册发现、配置中心、API 网关、服务网格（Service Mesh）及分布式依赖编排；服务版本碎片化带来的环境一致性维护成本巨大。"
+            }
+          }
+        },
+        "recommendation": "在业务处于从 0 到 1 验证期、团队规模较小（通常少于 10-15 人）或领域边界尚未稳定时，优先推荐采用模块化单体架构（Modular Monolith），以最低的运维基础设施成本快速试错与迭代。当业务边界明确、团队规模按领域划分（多团队协作）、部分业务模块出现显著差异化的伸缩与性能瓶颈，且具备成熟的 DevOps/SRE 治理能力时，再平滑演进为微服务架构。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 38.16,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 1131.04,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1169.2,
+          "cpu_percent": 0.0
+        }
+      }
+    },
+    {
+      "round": 9,
+      "task_id": "task_C_complex_format_r9",
+      "status": "success",
+      "duration": 9.32,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"order_id\": \"ORD-20260822-894102\",\n  \"user\": {\n    \"user_id\": \"usr_992831\",\n    \"name\": \"张三\",\n    \"email\": \"zhangsan@example.com\",\n    \"phone\": \"+86-13800138000\",\n    \"shipping_address\": {\n      \"recipient_name\": \"张三\",\n      \"phone\": \"+86-13800138000\",\n      \"country\": \"CN\",\n      \"province\": \"北京市\",\n      \"city\": \"北京市\",\n      \"district\": \"海淀区\",\n      \"street\": \"中关村南大街1号\",\n      \"postal_code\": \"100080\"\n    }\n  },\n  \"items\": [\n    {\n      \"item_id\": \"itm_501\",\n      \"product_id\": \"prod_88329\",\n      \"sku_id\": \"sku_88329_blk_256g\",\n      \"name\": \"旗舰智能手机\",\n      \"specifications\": {\n        \"color\": \"曜石黑\",\n        \"storage\": \"256GB\"\n      },\n      \"unit_price\": 5999.00,\n      \"quantity\": 1,\n      \"subtotal\": 5999.00,\n      \"discount_amount\": 200.00\n    },\n    {\n      \"item_id\": \"itm_502\",\n      \"product_id\": \"prod_10294\",\n      \"sku_id\": \"sku_10294_std\",\n      \"name\": \"无线降噪耳机\",\n      \"specifications\": {\n        \"color\": \"晨曦白\"\n      },\n      \"unit_price\": 799.00,\n      \"quantity\": 2,\n      \"subtotal\": 1598.00,\n      \"discount_amount\": 0.00\n    }\n  ],\n  \"payment\": {\n    \"payment_id\": \"pay_trn_77492019\",\n    \"payment_method\": \"wechat_pay\",\n    \"status\": \"paid\",\n    \"currency\": \"CNY\",\n    \"amount\": {\n      \"items_total\": 7597.00,\n      \"discount_total\": 200.00,\n      \"shipping_fee\": 0.00,\n      \"grand_total\": 7397.00\n    },\n    \"paid_at\": \"2026-08-22T20:49:49Z\",\n    \"transaction_reference\": \"wx_2026082220494910293847\"\n  }\n}",
+      "parsed_result": {
+        "order_id": "ORD-20260822-894102",
+        "user": {
+          "user_id": "usr_992831",
+          "name": "张三",
+          "email": "zhangsan@example.com",
+          "phone": "+86-13800138000",
+          "shipping_address": {
+            "recipient_name": "张三",
+            "phone": "+86-13800138000",
+            "country": "CN",
+            "province": "北京市",
+            "city": "北京市",
+            "district": "海淀区",
+            "street": "中关村南大街1号",
+            "postal_code": "100080"
+          }
+        },
+        "items": [
+          {
+            "item_id": "itm_501",
+            "product_id": "prod_88329",
+            "sku_id": "sku_88329_blk_256g",
+            "name": "旗舰智能手机",
+            "specifications": {
+              "color": "曜石黑",
+              "storage": "256GB"
+            },
+            "unit_price": 5999.0,
+            "quantity": 1,
+            "subtotal": 5999.0,
+            "discount_amount": 200.0
+          },
+          {
+            "item_id": "itm_502",
+            "product_id": "prod_10294",
+            "sku_id": "sku_10294_std",
+            "name": "无线降噪耳机",
+            "specifications": {
+              "color": "晨曦白"
+            },
+            "unit_price": 799.0,
+            "quantity": 2,
+            "subtotal": 1598.0,
+            "discount_amount": 0.0
+          }
+        ],
+        "payment": {
+          "payment_id": "pay_trn_77492019",
+          "payment_method": "wechat_pay",
+          "status": "paid",
+          "currency": "CNY",
+          "amount": {
+            "items_total": 7597.0,
+            "discount_total": 200.0,
+            "shipping_fee": 0.0,
+            "grand_total": 7397.0
+          },
+          "paid_at": "2026-08-22T20:49:49Z",
+          "transaction_reference": "wx_2026082220494910293847"
+        }
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 38.34,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 1163.86,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1202.2,
+          "cpu_percent": 0.0
+        }
+      }
+    },
+    {
+      "round": 10,
+      "task_id": "task_A_simple_json_r10",
+      "status": "success",
+      "duration": 10.69,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"main_applications\": [\n        \"人工智能与机器学习\",\n        \"数据分析与科学计算\",\n        \"Web 后端开发\",\n        \"自动化运维与脚本编写\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"main_applications\": [\n        \"前端 Web 交互与单页应用 (SPA)\",\n        \"全栈/后端开发 (Node.js)\",\n        \"跨平台移动应用开发 (React Native 等)\",\n        \"桌面客户端应用开发 (Electron)\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"main_applications\": [\n        \"企业级系统与微服务架构\",\n        \"Android 原生移动开发\",\n        \"大数据基础设施与分布式计算 (Hadoop, Spark 等)\",\n        \"金融与高可靠性交易后端\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 是当前全球应用最广泛的三种编程语言，分别在 AI/数据科学、Web 全栈生态以及企业级系统/Android 开发中占据核心主导地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "main_applications": [
+              "人工智能与机器学习",
+              "数据分析与科学计算",
+              "Web 后端开发",
+              "自动化运维与脚本编写"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "main_applications": [
+              "前端 Web 交互与单页应用 (SPA)",
+              "全栈/后端开发 (Node.js)",
+              "跨平台移动应用开发 (React Native 等)",
+              "桌面客户端应用开发 (Electron)"
+            ]
+          },
+          {
+            "name": "Java",
+            "main_applications": [
+              "企业级系统与微服务架构",
+              "Android 原生移动开发",
+              "大数据基础设施与分布式计算 (Hadoop, Spark 等)",
+              "金融与高可靠性交易后端"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 是当前全球应用最广泛的三种编程语言，分别在 AI/数据科学、Web 全栈生态以及企业级系统/Android 开发中占据核心主导地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 22120,
+          "rss_mb": 38.52,
+          "cpu_percent": 7.7
+        },
+        "browser": {
+          "process_count": 4,
+          "rss_mb": 1203.29,
+          "cpu_percent": 15.4
+        },
+        "total": {
+          "rss_mb": 1241.81,
+          "cpu_percent": 23.1
+        }
+      }
+    }
+  ]
+}

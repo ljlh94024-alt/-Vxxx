@@ -1,0 +1,171 @@
+{
+  "timestamp": "2026-08-22T19:52:55",
+  "run_id": "20260822_195158",
+  "mode": "gui",
+  "total_rounds": 2,
+  "success_count": 2,
+  "failed_count": 0,
+  "success_rate_percent": 100.0,
+  "total_duration_sec": 56.86,
+  "avg_duration_sec": 26.75,
+  "retry_count": 0,
+  "extraction_verified_count": 2,
+  "extraction_verified_rate_percent": 100.0,
+  "resource_summary": {
+    "python": {
+      "rss_mb_avg": 36.89,
+      "rss_mb_min": 36.7,
+      "rss_mb_max": 37.07,
+      "cpu_percent_avg": 0.0,
+      "cpu_percent_max": 0.0
+    },
+    "browser": {
+      "rss_mb_avg": 1013.33,
+      "rss_mb_min": 919.62,
+      "rss_mb_max": 1107.04,
+      "cpu_percent_avg": 8.0,
+      "cpu_percent_max": 8.3,
+      "process_count_max": 11
+    },
+    "total": {
+      "rss_mb_avg": 1050.21,
+      "rss_mb_min": 956.32,
+      "rss_mb_max": 1144.11,
+      "cpu_percent_avg": 8.0,
+      "cpu_percent_max": 8.3
+    }
+  },
+  "round_details": [
+    {
+      "round": 1,
+      "task_id": "task_A_simple_json_20260822_195158_r1",
+      "status": "success",
+      "duration": 42.58,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"applications\": [\n        \"人工智能与机器学习\",\n        \"数据分析与科学计算\",\n        \"Web后端开发\",\n        \"自动化脚本与爬虫\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"applications\": [\n        \"Web前端开发与交互\",\n        \"基于Node.js的后端全栈开发\",\n        \"跨平台移动应用开发\",\n        \"桌面客户端应用开发\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"applications\": [\n        \"企业级大型后端系统\",\n        \"Android移动应用开发\",\n        \"大数据处理框架与分布式系统\",\n        \"金融与高并发服务\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript与Java是当前行业中最主流的三种编程语言，分别在人工智能与数据科学、Web全栈生态以及企业级系统与Android开发领域占据核心地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "applications": [
+              "人工智能与机器学习",
+              "数据分析与科学计算",
+              "Web后端开发",
+              "自动化脚本与爬虫"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "applications": [
+              "Web前端开发与交互",
+              "基于Node.js的后端全栈开发",
+              "跨平台移动应用开发",
+              "桌面客户端应用开发"
+            ]
+          },
+          {
+            "name": "Java",
+            "applications": [
+              "企业级大型后端系统",
+              "Android移动应用开发",
+              "大数据处理框架与分布式系统",
+              "金融与高并发服务"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript与Java是当前行业中最主流的三种编程语言，分别在人工智能与数据科学、Web全栈生态以及企业级系统与Android开发领域占据核心地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 19000,
+          "rss_mb": 36.7,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 11,
+          "rss_mb": 919.62,
+          "cpu_percent": 8.3
+        },
+        "total": {
+          "rss_mb": 956.32,
+          "cpu_percent": 8.3
+        }
+      }
+    },
+    {
+      "round": 2,
+      "task_id": "task_B_long_text_20260822_195158_r2",
+      "status": "success",
+      "duration": 10.92,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"comparison\": {\n    \"performance\": {\n      \"monolithic\": {\n        \"pros\": \"模块间调用多为内存级别的进程内调用，无网络传输开销，低延迟；事务处理支持本地事务（ACID），性能高且一致性保障容易。\",\n        \"cons\": \"由于所有功能共享同一进程和资源，单个高计算或内存泄漏模块会直接拖慢整个系统的吞吐量与响应速度。\"\n      },\n      \"microservices\": {\n        \"pros\": \"各个微服务可根据自身负载特性独立优化底层技术栈、缓存和硬件资源，避免单一模块的资源瓶颈影响全局性能。\",\n        \"cons\": \"服务间通信依赖网络（REST/gRPC/MQ），引入额外的序列化和网络延迟；跨服务数据一致性需要分布式事务（BASE），导致更高的性能损耗。\"\n      }\n    },\n    \"maintenance_cost\": {\n      \"monolithic\": {\n        \"pros\": \"初期开发、调试和测试相对简单；单一代码库（Monorepo）易于追踪整体业务流，团队认知成本初期较低。\",\n        \"cons\": \"随着业务规模扩张，代码库庞大导致代码耦合严重，难以重构；新人上手周期长，代码合并冲突频发，后期技术债务和维护成本呈指数级增长。\"\n      },\n      \"microservices\": {\n        \"pros\": \"服务边界清晰（遵循DDD），单个代码库小而专注，模块解耦彻底；团队可自治维护各自服务，支持异构技术栈更新与渐进式重构。\",\n        \"cons\": \"全局问题排查难度高（依赖复杂的分布式追踪和可观测性体系）；跨服务接口变更需要严格的版本控制与多团队协同契约测试。\"\n      }\n    },\n    \"scalability\": {\n      \"monolithic\": {\n        \"pros\": \"水平扩展实现简单，只需在负载均衡器后复制整个应用实例并部署多份即可。\",\n        \"cons\": \"无法实现细粒度伸缩；即使只有某一个子模块遭遇瓶颈，也必须完整复制整个系统，导致严重的硬件资源浪费与数据库连接瓶颈。\"\n      },\n      \"microservices\": {\n        \"pros\": \"支持针对特定瓶颈服务进行精细化水平或垂直自动伸缩（如针对大促期间的秒杀模块动态扩容），资源利用率高且扩展弹性极强。\",\n        \"cons\": \"需要依赖复杂的云原生编排基础设施（如Kubernetes、服务发现与服务网格），在基础设施扩展和治理上对团队架构能力要求高。\"\n      }\n    },\n    \"deployment_complexity\": {\n      \"monolithic\": {\n        \"pros\": \"部署流水线单一明了，只需构建、打包并部署一个产物（如单个JAR包或Docker镜像），运维难度和流水线复杂度较低。\",\n        \"cons\": \"全量发布风险高，微小改动需全量构建和重启；一旦上线出现缺陷可能导致全站宕机；回滚耗时长且影响范围为全局。\"\n      },\n      \"microservices\": {\n        \"pros\": \"各个服务独立构建与发布，支持敏捷迭代、金丝雀发布和蓝绿部署，单服务发布失败不会导致全量系统不可用，故障隔离性好。\",\n        \"cons\": \"服务数量庞大导致依赖拓扑复杂；对CI/CD流水线、配置中心、网关路由以及自动化运维基建的要求极高。\"\n      }\n    }\n  },\n  \"recommendation\": \"在项目初期、业务模式尚未完全验证或团队规模较小（通常<20人）时，应优先采用模块化良好的单体架构（Modular Monolith）以追求敏捷开发与极低运维成本。当业务复杂度爆发式增长、团队规模扩张至多自治团队、且不同模块之间存在显著异构的性能与弹性伸缩需求时，再循序渐进地依据领域驱动设计（DDD）拆分核心服务，向微服务架构演进，避免在缺乏完善DevOps基础设施的情况下过早进行微服务化。\"\n}",
+      "parsed_result": {
+        "comparison": {
+          "performance": {
+            "monolithic": {
+              "pros": "模块间调用多为内存级别的进程内调用，无网络传输开销，低延迟；事务处理支持本地事务（ACID），性能高且一致性保障容易。",
+              "cons": "由于所有功能共享同一进程和资源，单个高计算或内存泄漏模块会直接拖慢整个系统的吞吐量与响应速度。"
+            },
+            "microservices": {
+              "pros": "各个微服务可根据自身负载特性独立优化底层技术栈、缓存和硬件资源，避免单一模块的资源瓶颈影响全局性能。",
+              "cons": "服务间通信依赖网络（REST/gRPC/MQ），引入额外的序列化和网络延迟；跨服务数据一致性需要分布式事务（BASE），导致更高的性能损耗。"
+            }
+          },
+          "maintenance_cost": {
+            "monolithic": {
+              "pros": "初期开发、调试和测试相对简单；单一代码库（Monorepo）易于追踪整体业务流，团队认知成本初期较低。",
+              "cons": "随着业务规模扩张，代码库庞大导致代码耦合严重，难以重构；新人上手周期长，代码合并冲突频发，后期技术债务和维护成本呈指数级增长。"
+            },
+            "microservices": {
+              "pros": "服务边界清晰（遵循DDD），单个代码库小而专注，模块解耦彻底；团队可自治维护各自服务，支持异构技术栈更新与渐进式重构。",
+              "cons": "全局问题排查难度高（依赖复杂的分布式追踪和可观测性体系）；跨服务接口变更需要严格的版本控制与多团队协同契约测试。"
+            }
+          },
+          "scalability": {
+            "monolithic": {
+              "pros": "水平扩展实现简单，只需在负载均衡器后复制整个应用实例并部署多份即可。",
+              "cons": "无法实现细粒度伸缩；即使只有某一个子模块遭遇瓶颈，也必须完整复制整个系统，导致严重的硬件资源浪费与数据库连接瓶颈。"
+            },
+            "microservices": {
+              "pros": "支持针对特定瓶颈服务进行精细化水平或垂直自动伸缩（如针对大促期间的秒杀模块动态扩容），资源利用率高且扩展弹性极强。",
+              "cons": "需要依赖复杂的云原生编排基础设施（如Kubernetes、服务发现与服务网格），在基础设施扩展和治理上对团队架构能力要求高。"
+            }
+          },
+          "deployment_complexity": {
+            "monolithic": {
+              "pros": "部署流水线单一明了，只需构建、打包并部署一个产物（如单个JAR包或Docker镜像），运维难度和流水线复杂度较低。",
+              "cons": "全量发布风险高，微小改动需全量构建和重启；一旦上线出现缺陷可能导致全站宕机；回滚耗时长且影响范围为全局。"
+            },
+            "microservices": {
+              "pros": "各个服务独立构建与发布，支持敏捷迭代、金丝雀发布和蓝绿部署，单服务发布失败不会导致全量系统不可用，故障隔离性好。",
+              "cons": "服务数量庞大导致依赖拓扑复杂；对CI/CD流水线、配置中心、网关路由以及自动化运维基建的要求极高。"
+            }
+          }
+        },
+        "recommendation": "在项目初期、业务模式尚未完全验证或团队规模较小（通常<20人）时，应优先采用模块化良好的单体架构（Modular Monolith）以追求敏捷开发与极低运维成本。当业务复杂度爆发式增长、团队规模扩张至多自治团队、且不同模块之间存在显著异构的性能与弹性伸缩需求时，再循序渐进地依据领域驱动设计（DDD）拆分核心服务，向微服务架构演进，避免在缺乏完善DevOps基础设施的情况下过早进行微服务化。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 19000,
+          "rss_mb": 37.07,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 11,
+          "rss_mb": 1107.04,
+          "cpu_percent": 7.7
+        },
+        "total": {
+          "rss_mb": 1144.11,
+          "cpu_percent": 7.7
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "timestamp": "2026-08-22T20:25:00+08:00",
+  "scope": "Gemini Browser Client V1.2 GUI/headless resource and outbound traffic comparison",
+  "gui_10_rounds": {
+    "success_rate_percent": 100.0,
+    "retry_count": 0,
+    "extraction_verified_rate_percent": 100.0,
+    "avg_duration_sec": 10.09,
+    "total_rss_mb_avg": 1320.51,
+    "total_rss_mb_max": 1569.67,
+    "gemini_request_count": 400,
+    "gemini_estimated_outbound_bytes": 837535
+  },
+  "headless_10_rounds": {
+    "success_rate_percent": 100.0,
+    "retry_count": 0,
+    "extraction_verified_rate_percent": 100.0,
+    "avg_duration_sec": 10.32,
+    "total_rss_mb_avg": 970.06,
+    "total_rss_mb_max": 1166.99,
+    "gemini_request_count": 402,
+    "gemini_estimated_outbound_bytes": 579864
+  },
+  "difference_headless_minus_gui": {
+    "avg_duration_sec": 0.23,
+    "total_rss_mb_avg": -350.45,
+    "total_rss_mb_max": -402.68,
+    "gemini_request_count": 2,
+    "gemini_estimated_outbound_bytes": -257671
+  },
+  "traffic_measurement_note": "Outbound is an application-layer estimate from request method, URL, headers and body. TLS and HTTP/2 framing are excluded. No URL query, header value, cookie, or request body is retained. Inbound Content-Length was absent and therefore cannot be treated as measured inbound traffic."
+}

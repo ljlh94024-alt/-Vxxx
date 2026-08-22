@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-08-22T19:33:02",
+  "mode": "gui",
+  "total_rounds": 1,
+  "success_count": 1,
+  "failed_count": 0,
+  "success_rate_percent": 100.0,
+  "total_duration_sec": 14.27,
+  "avg_duration_sec": 12.28,
+  "retry_count": 0,
+  "resource_summary": {
+    "python": {
+      "rss_mb_avg": 36.7,
+      "rss_mb_min": 36.7,
+      "rss_mb_max": 36.7,
+      "cpu_percent_avg": 0.0,
+      "cpu_percent_max": 0.0
+    },
+    "browser": {
+      "rss_mb_avg": 830.85,
+      "rss_mb_min": 830.85,
+      "rss_mb_max": 830.85,
+      "cpu_percent_avg": 23.1,
+      "cpu_percent_max": 23.1,
+      "process_count_max": 11
+    },
+    "total": {
+      "rss_mb_avg": 867.55,
+      "rss_mb_min": 867.55,
+      "rss_mb_max": 867.55,
+      "cpu_percent_avg": 23.1,
+      "cpu_percent_max": 23.1
+    }
+  },
+  "round_details": [
+    {
+      "round": 1,
+      "task_id": "task_A_simple_json_r1",
+      "status": "success",
+      "duration": 12.28,
+      "error": "",
+      "retry_count": 0,
+      "metrics": {
+        "python": {
+          "pid": 4160,
+          "rss_mb": 36.7,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 11,
+          "rss_mb": 830.85,
+          "cpu_percent": 23.1
+        },
+        "total": {
+          "rss_mb": 867.55,
+          "cpu_percent": 23.1
+        }
+      }
+    }
+  ]
+}

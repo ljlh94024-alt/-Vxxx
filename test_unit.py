@@ -10,9 +10,62 @@ from worker import load_selectors
 from worker_factory import WorkerFactory
 from config import load_config
 from controller import Controller, State
+from benchmark_runner import get_process_metrics, summarize_metrics, subtract_traffic
+from browser import BrowserManager
 
 
 class TestV021RuntimeSuite(unittest.TestCase):
+    def test_gemini_traffic_filter_and_delta(self):
+        self.assertTrue(BrowserManager._is_gemini_traffic_host("gemini.google.com"))
+        self.assertTrue(BrowserManager._is_gemini_traffic_host("alkalimakersuite-pa.clients6.google.com"))
+        self.assertFalse(BrowserManager._is_gemini_traffic_host("accounts.google.com"))
+        before = {
+            "request_count": 2, "estimated_outbound_bytes": 100,
+            "response_count": 2, "declared_inbound_bytes": 0,
+            "methods": {"POST": 2},
+            "by_host": {"gemini.google.com": {
+                "request_count": 2, "estimated_outbound_bytes": 100,
+                "response_count": 2, "declared_inbound_bytes": 0,
+            }},
+        }
+        after = {
+            "request_count": 5, "estimated_outbound_bytes": 250,
+            "response_count": 4, "declared_inbound_bytes": 20,
+            "methods": {"POST": 4, "GET": 1},
+            "by_host": {"gemini.google.com": {
+                "request_count": 5, "estimated_outbound_bytes": 250,
+                "response_count": 4, "declared_inbound_bytes": 20,
+            }},
+        }
+        delta = subtract_traffic(after, before)
+        self.assertEqual(3, delta["request_count"])
+        self.assertEqual(150, delta["estimated_outbound_bytes"])
+        self.assertEqual({"POST": 2, "GET": 1}, delta["methods"])
+
+    def test_process_metrics_include_python_browser_and_total(self):
+        metrics = get_process_metrics()
+        self.assertEqual({"python", "browser", "total"}, set(metrics))
+        self.assertGreater(metrics["python"]["rss_mb"], 0)
+        self.assertGreaterEqual(metrics["browser"]["process_count"], 0)
+        self.assertGreaterEqual(metrics["total"]["rss_mb"], metrics["python"]["rss_mb"])
+
+    def test_summarize_metrics(self):
+        details = [
+            {"metrics": {
+                "python": {"rss_mb": 10.0, "cpu_percent": 2.0},
+                "browser": {"rss_mb": 30.0, "cpu_percent": 4.0, "process_count": 3},
+                "total": {"rss_mb": 40.0, "cpu_percent": 6.0},
+            }},
+            {"metrics": {
+                "python": {"rss_mb": 12.0, "cpu_percent": 4.0},
+                "browser": {"rss_mb": 34.0, "cpu_percent": 6.0, "process_count": 4},
+                "total": {"rss_mb": 46.0, "cpu_percent": 10.0},
+            }},
+        ]
+        summary = summarize_metrics(details)
+        self.assertEqual(43.0, summary["total"]["rss_mb_avg"])
+        self.assertEqual(4, summary["browser"]["process_count_max"])
+
     @classmethod
     def setUpClass(cls):
         cls.test_db = "data/test_state_v021.db"

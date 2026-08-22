@@ -1,6 +1,9 @@
 import os
+import threading
+from copy import deepcopy
 from datetime import datetime
 from typing import Optional, Tuple
+from urllib.parse import urlparse
 from playwright.sync_api import sync_playwright, Playwright, BrowserContext, Page
 
 
@@ -26,6 +29,94 @@ class BrowserManager:
         self._context: Optional[BrowserContext] = None
         self._page: Optional[Page] = None
         self.is_running: bool = False
+        self._traffic_lock = threading.Lock()
+        self._gemini_traffic = self._empty_traffic_stats()
+
+    @staticmethod
+    def _empty_traffic_stats():
+        return {
+            "request_count": 0,
+            "estimated_outbound_bytes": 0,
+            "response_count": 0,
+            "declared_inbound_bytes": 0,
+            "methods": {},
+            "by_host": {},
+        }
+
+    @staticmethod
+    def _is_gemini_traffic_host(host: str) -> bool:
+        host = (host or "").lower().rstrip(".")
+        return (
+            host == "gemini.google.com"
+            or host.endswith(".gemini.google.com")
+            or "alkalimakersuite" in host
+        )
+
+    @staticmethod
+    def _estimate_request_bytes(request) -> int:
+        """Estimate clear-text HTTP request bytes; excludes TLS/HTTP2 overhead."""
+        try:
+            headers = request.headers
+        except Exception:
+            headers = {}
+        header_bytes = sum(
+            len(str(name).encode("utf-8")) + len(str(value).encode("utf-8")) + 4
+            for name, value in headers.items()
+        )
+        try:
+            body = request.post_data_buffer or b""
+        except Exception:
+            body = b""
+        return (
+            len(str(request.method).encode("utf-8"))
+            + len(str(request.url).encode("utf-8"))
+            + header_bytes
+            + len(body)
+            + 12
+        )
+
+    def _on_request(self, request) -> None:
+        host = (urlparse(request.url).hostname or "").lower()
+        if not self._is_gemini_traffic_host(host):
+            return
+        method = str(request.method).upper()
+        size = self._estimate_request_bytes(request)
+        with self._traffic_lock:
+            self._gemini_traffic["request_count"] += 1
+            self._gemini_traffic["estimated_outbound_bytes"] += size
+            methods = self._gemini_traffic["methods"]
+            methods[method] = methods.get(method, 0) + 1
+            host_stats = self._gemini_traffic["by_host"].setdefault(
+                host,
+                {"request_count": 0, "estimated_outbound_bytes": 0,
+                 "response_count": 0, "declared_inbound_bytes": 0},
+            )
+            host_stats["request_count"] += 1
+            host_stats["estimated_outbound_bytes"] += size
+
+    def _on_response(self, response) -> None:
+        host = (urlparse(response.url).hostname or "").lower()
+        if not self._is_gemini_traffic_host(host):
+            return
+        try:
+            declared_bytes = int(response.headers.get("content-length", "0"))
+        except (TypeError, ValueError):
+            declared_bytes = 0
+        with self._traffic_lock:
+            self._gemini_traffic["response_count"] += 1
+            self._gemini_traffic["declared_inbound_bytes"] += declared_bytes
+            host_stats = self._gemini_traffic["by_host"].setdefault(
+                host,
+                {"request_count": 0, "estimated_outbound_bytes": 0,
+                 "response_count": 0, "declared_inbound_bytes": 0},
+            )
+            host_stats["response_count"] += 1
+            host_stats["declared_inbound_bytes"] += declared_bytes
+
+    def get_gemini_traffic_snapshot(self):
+        """Return sanitized cumulative counters; never includes URLs or payloads."""
+        with self._traffic_lock:
+            return deepcopy(self._gemini_traffic)
 
     def health_check(self) -> Tuple[bool, str]:
         """
@@ -53,35 +144,42 @@ class BrowserManager:
             if healthy:
                 return True, "Browser already running and healthy"
 
+            # Dispose stale Playwright/context handles before relaunching. This
+            # is required when the page or browser was closed outside the
+            # controller; otherwise the persistent profile can remain locked.
+            if self._context is not None or self._playwright is not None:
+                self.close()
+
             if not os.path.exists(self.profile_path):
                 os.makedirs(self.profile_path, exist_ok=True)
 
             self._playwright = sync_playwright().start()
+            browser_args = [
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-dev-shm-usage",
+                "--remote-debugging-address=127.0.0.1",
+                "--remote-debugging-port=9222",
+            ]
             try:
                 self._context = self._playwright.chromium.launch_persistent_context(
                     user_data_dir=self.profile_path,
                     headless=self.headless,
                     channel="chrome",
-                    args=[
-                        "--disable-blink-features=AutomationControlled",
-                        "--no-sandbox",
-                        "--disable-dev-shm-usage",
-                    ],
+                    args=browser_args,
                     viewport={"width": 1280, "height": 800},
                 )
             except Exception:
                 self._context = self._playwright.chromium.launch_persistent_context(
                     user_data_dir=self.profile_path,
                     headless=self.headless,
-                    args=[
-                        "--disable-blink-features=AutomationControlled",
-                        "--no-sandbox",
-                        "--disable-dev-shm-usage",
-                    ],
+                    args=browser_args,
                     viewport={"width": 1280, "height": 800},
                 )
 
             self._context.set_default_timeout(self.timeout)
+            self._context.on("request", self._on_request)
+            self._context.on("response", self._on_response)
             if self._context.pages:
                 self._page = self._context.pages[0]
             else:

@@ -1,0 +1,987 @@
+{
+  "timestamp": "2026-08-22T20:22:20",
+  "run_id": "20260822_202024",
+  "mode": "gui",
+  "total_rounds": 10,
+  "success_count": 10,
+  "failed_count": 0,
+  "success_rate_percent": 100.0,
+  "total_duration_sec": 115.41,
+  "avg_duration_sec": 10.09,
+  "retry_count": 0,
+  "extraction_verified_count": 10,
+  "extraction_verified_rate_percent": 100.0,
+  "resource_summary": {
+    "python": {
+      "rss_mb_avg": 60.36,
+      "rss_mb_min": 41.41,
+      "rss_mb_max": 78.71,
+      "cpu_percent_avg": 0.0,
+      "cpu_percent_max": 0.0
+    },
+    "browser": {
+      "rss_mb_avg": 1260.15,
+      "rss_mb_min": 834.13,
+      "rss_mb_max": 1495.06,
+      "cpu_percent_avg": 13.09,
+      "cpu_percent_max": 92.4,
+      "process_count_max": 10
+    },
+    "total": {
+      "rss_mb_avg": 1320.51,
+      "rss_mb_min": 875.54,
+      "rss_mb_max": 1569.67,
+      "cpu_percent_avg": 13.09,
+      "cpu_percent_max": 92.4
+    }
+  },
+  "gemini_traffic_summary": {
+    "request_count": 400,
+    "estimated_outbound_bytes": 837535,
+    "response_count": 400,
+    "declared_inbound_bytes": 0,
+    "methods": {
+      "GET": 30,
+      "POST": 370
+    },
+    "by_host": {
+      "gemini.google.com": {
+        "request_count": 400,
+        "estimated_outbound_bytes": 837535,
+        "response_count": 400,
+        "declared_inbound_bytes": 0
+      }
+    },
+    "measurement_note": "Outbound is an application-layer estimate from method, URL, headers and body; it excludes TLS and HTTP/2 framing. Inbound counts only declared Content-Length. No URL query, header value, cookie, or request body is stored."
+  },
+  "round_details": [
+    {
+      "round": 1,
+      "task_id": "task_A_simple_json_20260822_202024_r1",
+      "status": "success",
+      "duration": 10.43,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"primary_domains\": [\n        \"人工智能与机器学习\",\n        \"数据分析与科学计算\",\n        \"Web 后端开发\",\n        \"自动化运维与脚本\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"primary_domains\": [\n        \"前端 Web 开发\",\n        \"全栈/后端开发 (Node.js)\",\n        \"跨平台移动应用开发\",\n        \"桌面客户端应用\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"primary_domains\": [\n        \"企业级大型系统与后端服务\",\n        \"Android 移动端开发\",\n        \"大数据处理框架 (如 Hadoop、Spark 生态)\",\n        \"金融分布式系统\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 是当前工业界最常用且生态最为成熟的三种编程语言，分别在数据与人工智能、Web 交互与全栈开发以及企业级系统与移动开发领域占据核心地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "primary_domains": [
+              "人工智能与机器学习",
+              "数据分析与科学计算",
+              "Web 后端开发",
+              "自动化运维与脚本"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "primary_domains": [
+              "前端 Web 开发",
+              "全栈/后端开发 (Node.js)",
+              "跨平台移动应用开发",
+              "桌面客户端应用"
+            ]
+          },
+          {
+            "name": "Java",
+            "primary_domains": [
+              "企业级大型系统与后端服务",
+              "Android 移动端开发",
+              "大数据处理框架 (如 Hadoop、Spark 生态)",
+              "金融分布式系统"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 是当前工业界最常用且生态最为成熟的三种编程语言，分别在数据与人工智能、Web 交互与全栈开发以及企业级系统与移动开发领域占据核心地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 41.41,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 834.13,
+          "cpu_percent": 92.4
+        },
+        "total": {
+          "rss_mb": 875.54,
+          "cpu_percent": 92.4
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 39,
+        "estimated_outbound_bytes": 53427,
+        "response_count": 39,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 36
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 39,
+            "estimated_outbound_bytes": 53427,
+            "response_count": 39,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 2,
+      "task_id": "task_B_long_text_20260822_202024_r2",
+      "status": "success",
+      "duration": 13.78,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"comparison\": {\n    \"performance\": {\n      \"monolithic\": {\n        \"pros\": [\n          \"进程内通信（In-process Calls），无网络调用延迟与序列化开销，数据访问和函数调用极快\",\n          \"支持本地事务（ACID），数据一致性保障成本低且高效\",\n          \"资源利用率在单机或小规模下更紧凑，没有额外的分布式服务治理开销\"\n        ],\n        \"cons\": [\n          \"单一慢请求或高内存消耗操作易导致整个进程资源耗尽（如线程池阻塞、频繁GC），从而拖慢全局性能\",\n          \"无法针对特定热点模块进行差异化硬件优化（例如针对计算密集型模块单独挂载GPU）\"\n        ]\n      },\n      \"microservices\": {\n        \"pros\": [\n          \"各服务独立运行，高负载服务不会直接拖垮非关联服务的运行资源\",\n          \"可以针对不同模块的技术特性选择最匹配的高性能语言和硬件栈（如Go/Rust处理高并发，Python处理机器学习）\"\n        ],\n        \"cons\": [\n          \"服务间依赖网络通信（REST/gRPC/消息队列），引入网络时延、序列化与反序列化损耗\",\n          \"依赖分布式事务（Saga、两阶段提交等）或最终一致性方案，显著增加业务延迟和性能开销\"\n        ]\n      }\n    },\n    \"maintenance_cost\": {\n      \"monolithic\": {\n        \"pros\": [\n          \"初期架构简单，代码库集中，本地开发、调试和端到端追踪非常直观\",\n          \"团队认知负荷低，无需处理复杂的服务发现、API网关和分布式配置\"\n        ],\n        \"cons\": [\n          \"随着业务增长，代码库容易演变为“大泥球”（Big Ball of Mud），模块间耦合严重，难以重构\",\n          \"团队规模扩大后，代码合并冲突频发，所有团队共享单一代码库导致协作摩擦激增\"\n        ]\n      },\n      \"microservices\": {\n        \"pros\": [\n          \"服务边界清晰，单一职责原则得以强约束，单个服务的代码规模小、理解难度低\",\n          \"团队可按业务域（DDD）自治，独立拥有各自服务的代码库，减少跨团队协调阻力\"\n        ],\n        \"cons\": [\n          \"运维与排障成本高，需要搭建并维护分布式链路追踪（Tracing）、集中式日志（Logging）与指标监控系统\",\n          \"跨服务接口变更需要严格的兼容性管理（如API版本控制），接口破坏性变更易引发连锁故障\"\n        ]\n      }\n    },\n    \"scalability\": {\n      \"monolithic\": {\n        \"pros\": [\n          \"水平扩展机制直观，只需在负载均衡后增加整体实例副本即可\"\n        ],\n        \"cons\": [\n          \"只能整体扩容，哪怕只有一个子功能面临高并发，也必须打包复制整个应用，造成极大的计算与内存资源浪费\",\n          \"共享单一中心数据库，数据库连接数和读写性能极易成为全局扩展瓶颈\"\n        ]\n      },\n      \"microservices\": {\n        \"pros\": [\n          \"具备细粒度弹性伸缩能力，可针对特定瓶颈服务独立进行自动扩缩容（Auto-scaling），资源利用效率高\",\n          \"数据库垂直拆分（Database-per-service），各服务独立管理自己的数据存储，避免单点数据库连接与性能瓶颈\"\n        ],\n        \"cons\": [\n          \"分布式数据切分导致无法直接进行跨库JOIN操作，需要通过CQRS、数据同步管道或API聚合实现，架构复杂度极高\"\n        ]\n      }\n    },\n    \"deployment_complexity\": {\n      \"monolithic\": {\n        \"pros\": [\n          \"部署流水线单一，生成单个可执行文件/容器镜像即可上线\",\n          \"依赖管理简单，无需编排庞大的服务拓扑网络\"\n        ],\n        \"cons\": [\n          \"全量发布风险高，“牵一发而动全身”，微小修改出错可能导致整站瘫痪\",\n          \"构建和测试耗时随代码量急剧增加，难以实现高频发布；回滚操作代价大\"\n        ]\n      },\n      \"microservices\": {\n        \"pros\": [\n          \"服务可独立部署，发布周期短，支持灰度发布（Canary）、蓝绿部署和针对单一服务的快速回滚\",\n          \"故障隔离性好，单个服务部署失败通常不会直接导致全站崩溃\"\n        ],\n        \"cons\": [\n          \"强依赖容器编排（如Kubernetes）、服务网格（Service Mesh）、CI/CD自动化流水线及配置中心，基础设施门槛高\",\n          \"服务间存在依赖顺序与版本兼容约束，多服务协同发布的编排与环境验证极其繁琐\"\n        ]\n      }\n    }\n  },\n  \"recommendation\": \"架构选择应遵循业务发展阶段与团队规模的动态匹配原则：1. **单体优先（Monolith First）**：对于初创项目、业务模式尚在验证阶段或团队规模较小（通常小于20-30人）的场景，优先采用模块化单体架构（Modular Monolith）。这样能够将精力和资源集中于核心业务迭代，避免过早陷入分布式系统的运维泥潭。2. **演进式拆分**：当业务领域边界清晰、单体代码库维护瓶颈明显，且出现特定模块高并发需求或多团队独立交付摩擦时，应借助领域驱动设计（DDD）逐步将核心/瓶颈模块剥离为微服务。3. **微服务适用场景**：仅在具备成熟的DevOps与自动化基础设施支持、团队规模庞大需要跨业务域自治交付、以及具备极高差异化扩展诉求的中大型系统中使用。\"\n}",
+      "parsed_result": {
+        "comparison": {
+          "performance": {
+            "monolithic": {
+              "pros": [
+                "进程内通信（In-process Calls），无网络调用延迟与序列化开销，数据访问和函数调用极快",
+                "支持本地事务（ACID），数据一致性保障成本低且高效",
+                "资源利用率在单机或小规模下更紧凑，没有额外的分布式服务治理开销"
+              ],
+              "cons": [
+                "单一慢请求或高内存消耗操作易导致整个进程资源耗尽（如线程池阻塞、频繁GC），从而拖慢全局性能",
+                "无法针对特定热点模块进行差异化硬件优化（例如针对计算密集型模块单独挂载GPU）"
+              ]
+            },
+            "microservices": {
+              "pros": [
+                "各服务独立运行，高负载服务不会直接拖垮非关联服务的运行资源",
+                "可以针对不同模块的技术特性选择最匹配的高性能语言和硬件栈（如Go/Rust处理高并发，Python处理机器学习）"
+              ],
+              "cons": [
+                "服务间依赖网络通信（REST/gRPC/消息队列），引入网络时延、序列化与反序列化损耗",
+                "依赖分布式事务（Saga、两阶段提交等）或最终一致性方案，显著增加业务延迟和性能开销"
+              ]
+            }
+          },
+          "maintenance_cost": {
+            "monolithic": {
+              "pros": [
+                "初期架构简单，代码库集中，本地开发、调试和端到端追踪非常直观",
+                "团队认知负荷低，无需处理复杂的服务发现、API网关和分布式配置"
+              ],
+              "cons": [
+                "随着业务增长，代码库容易演变为“大泥球”（Big Ball of Mud），模块间耦合严重，难以重构",
+                "团队规模扩大后，代码合并冲突频发，所有团队共享单一代码库导致协作摩擦激增"
+              ]
+            },
+            "microservices": {
+              "pros": [
+                "服务边界清晰，单一职责原则得以强约束，单个服务的代码规模小、理解难度低",
+                "团队可按业务域（DDD）自治，独立拥有各自服务的代码库，减少跨团队协调阻力"
+              ],
+              "cons": [
+                "运维与排障成本高，需要搭建并维护分布式链路追踪（Tracing）、集中式日志（Logging）与指标监控系统",
+                "跨服务接口变更需要严格的兼容性管理（如API版本控制），接口破坏性变更易引发连锁故障"
+              ]
+            }
+          },
+          "scalability": {
+            "monolithic": {
+              "pros": [
+                "水平扩展机制直观，只需在负载均衡后增加整体实例副本即可"
+              ],
+              "cons": [
+                "只能整体扩容，哪怕只有一个子功能面临高并发，也必须打包复制整个应用，造成极大的计算与内存资源浪费",
+                "共享单一中心数据库，数据库连接数和读写性能极易成为全局扩展瓶颈"
+              ]
+            },
+            "microservices": {
+              "pros": [
+                "具备细粒度弹性伸缩能力，可针对特定瓶颈服务独立进行自动扩缩容（Auto-scaling），资源利用效率高",
+                "数据库垂直拆分（Database-per-service），各服务独立管理自己的数据存储，避免单点数据库连接与性能瓶颈"
+              ],
+              "cons": [
+                "分布式数据切分导致无法直接进行跨库JOIN操作，需要通过CQRS、数据同步管道或API聚合实现，架构复杂度极高"
+              ]
+            }
+          },
+          "deployment_complexity": {
+            "monolithic": {
+              "pros": [
+                "部署流水线单一，生成单个可执行文件/容器镜像即可上线",
+                "依赖管理简单，无需编排庞大的服务拓扑网络"
+              ],
+              "cons": [
+                "全量发布风险高，“牵一发而动全身”，微小修改出错可能导致整站瘫痪",
+                "构建和测试耗时随代码量急剧增加，难以实现高频发布；回滚操作代价大"
+              ]
+            },
+            "microservices": {
+              "pros": [
+                "服务可独立部署，发布周期短，支持灰度发布（Canary）、蓝绿部署和针对单一服务的快速回滚",
+                "故障隔离性好，单个服务部署失败通常不会直接导致全站崩溃"
+              ],
+              "cons": [
+                "强依赖容器编排（如Kubernetes）、服务网格（Service Mesh）、CI/CD自动化流水线及配置中心，基础设施门槛高",
+                "服务间存在依赖顺序与版本兼容约束，多服务协同发布的编排与环境验证极其繁琐"
+              ]
+            }
+          }
+        },
+        "recommendation": "架构选择应遵循业务发展阶段与团队规模的动态匹配原则：1. **单体优先（Monolith First）**：对于初创项目、业务模式尚在验证阶段或团队规模较小（通常小于20-30人）的场景，优先采用模块化单体架构（Modular Monolith）。这样能够将精力和资源集中于核心业务迭代，避免过早陷入分布式系统的运维泥潭。2. **演进式拆分**：当业务领域边界清晰、单体代码库维护瓶颈明显，且出现特定模块高并发需求或多团队独立交付摩擦时，应借助领域驱动设计（DDD）逐步将核心/瓶颈模块剥离为微服务。3. **微服务适用场景**：仅在具备成熟的DevOps与自动化基础设施支持、团队规模庞大需要跨业务域自治交付、以及具备极高差异化扩展诉求的中大型系统中使用。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 46.05,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1088.9,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1134.95,
+          "cpu_percent": 0.0
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 41,
+        "estimated_outbound_bytes": 56132,
+        "response_count": 41,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 38
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 41,
+            "estimated_outbound_bytes": 56132,
+            "response_count": 41,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 3,
+      "task_id": "task_C_complex_format_20260822_202024_r3",
+      "status": "success",
+      "duration": 8.62,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"order_id\": \"ORD-20260822-89472\",\n  \"user\": {\n    \"user_id\": \"usr_998124\",\n    \"name\": \"张三\",\n    \"email\": \"zhangsan@example.com\",\n    \"phone\": \"+86-13800138000\",\n    \"shipping_address\": {\n      \"recipient\": \"张三\",\n      \"phone\": \"+86-13800138000\",\n      \"country\": \"CN\",\n      \"province\": \"上海市\",\n      \"city\": \"上海市\",\n      \"district\": \"浦东新区\",\n      \"street\": \"陆家嘴东路 161 号\",\n      \"postal_code\": \"200120\"\n    }\n  },\n  \"items\": [\n    {\n      \"item_id\": \"sku_1001\",\n      \"title\": \"无线降噪头戴式耳机\",\n      \"quantity\": 1,\n      \"unit_price\": 1999.00,\n      \"subtotal\": 1999.00,\n      \"attributes\": {\n        \"color\": \"深空灰\",\n        \"warranty\": \"2年\"\n      }\n    },\n    {\n      \"item_id\": \"sku_1042\",\n      \"title\": \"磁吸式快速充电底座\",\n      \"quantity\": 2,\n      \"unit_price\": 199.00,\n      \"subtotal\": 398.00,\n      \"attributes\": {\n        \"power\": \"30W\"\n      }\n    }\n  ],\n  \"payment\": {\n    \"payment_id\": \"pay_txn_78291048\",\n    \"currency\": \"CNY\",\n    \"total_amount\": 2397.00,\n    \"paid_amount\": 2397.00,\n    \"discount_amount\": 0.00,\n    \"payment_method\": \"ALIPAY\",\n    \"status\": \"PAID\",\n    \"paid_at\": \"2026-08-22T21:20:56Z\"\n  }\n}",
+      "parsed_result": {
+        "order_id": "ORD-20260822-89472",
+        "user": {
+          "user_id": "usr_998124",
+          "name": "张三",
+          "email": "zhangsan@example.com",
+          "phone": "+86-13800138000",
+          "shipping_address": {
+            "recipient": "张三",
+            "phone": "+86-13800138000",
+            "country": "CN",
+            "province": "上海市",
+            "city": "上海市",
+            "district": "浦东新区",
+            "street": "陆家嘴东路 161 号",
+            "postal_code": "200120"
+          }
+        },
+        "items": [
+          {
+            "item_id": "sku_1001",
+            "title": "无线降噪头戴式耳机",
+            "quantity": 1,
+            "unit_price": 1999.0,
+            "subtotal": 1999.0,
+            "attributes": {
+              "color": "深空灰",
+              "warranty": "2年"
+            }
+          },
+          {
+            "item_id": "sku_1042",
+            "title": "磁吸式快速充电底座",
+            "quantity": 2,
+            "unit_price": 199.0,
+            "subtotal": 398.0,
+            "attributes": {
+              "power": "30W"
+            }
+          }
+        ],
+        "payment": {
+          "payment_id": "pay_txn_78291048",
+          "currency": "CNY",
+          "total_amount": 2397.0,
+          "paid_amount": 2397.0,
+          "discount_amount": 0.0,
+          "payment_method": "ALIPAY",
+          "status": "PAID",
+          "paid_at": "2026-08-22T21:20:56Z"
+        }
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 50.09,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1151.62,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1201.71,
+          "cpu_percent": 0.0
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 39,
+        "estimated_outbound_bytes": 53692,
+        "response_count": 39,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 36
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 39,
+            "estimated_outbound_bytes": 53692,
+            "response_count": 39,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 4,
+      "task_id": "task_A_simple_json_20260822_202024_r4",
+      "status": "success",
+      "duration": 8.64,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"domains\": [\n        \"人工智能与机器学习\",\n        \"数据科学与数据分析\",\n        \"Web 后端开发\",\n        \"自动化运维与脚本编写\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"domains\": [\n        \"Web 前端开发\",\n        \"全栈/后端开发 (Node.js)\",\n        \"跨平台移动应用开发\",\n        \"桌面客户端开发 (Electron)\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"domains\": [\n        \"企业级系统与微服务开发\",\n        \"Android 移动应用开发\",\n        \"大数据处理框架 (Hadoop/Spark)\",\n        \"金融高并发后端系统\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 是当今软件开发领域中最广泛应用的三种编程语言，分别在数据与人工智能、Web 全栈交互以及企业级后端/移动生态中占据核心主导地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "domains": [
+              "人工智能与机器学习",
+              "数据科学与数据分析",
+              "Web 后端开发",
+              "自动化运维与脚本编写"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "domains": [
+              "Web 前端开发",
+              "全栈/后端开发 (Node.js)",
+              "跨平台移动应用开发",
+              "桌面客户端开发 (Electron)"
+            ]
+          },
+          {
+            "name": "Java",
+            "domains": [
+              "企业级系统与微服务开发",
+              "Android 移动应用开发",
+              "大数据处理框架 (Hadoop/Spark)",
+              "金融高并发后端系统"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 是当今软件开发领域中最广泛应用的三种编程语言，分别在数据与人工智能、Web 全栈交互以及企业级后端/移动生态中占据核心主导地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 54.2,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1190.25,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1244.45,
+          "cpu_percent": 0.0
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 40,
+        "estimated_outbound_bytes": 54610,
+        "response_count": 40,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 37
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 40,
+            "estimated_outbound_bytes": 54610,
+            "response_count": 40,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 5,
+      "task_id": "task_B_long_text_20260822_202024_r5",
+      "status": "success",
+      "duration": 10.77,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"comparison\": {\n    \"performance\": {\n      \"monolithic\": {\n        \"advantages\": \"组件间通过进程内直接方法调用进行交互，无网络延迟与额外序列化开销；共享内存与单体数据库支持高性能事务处理。\",\n        \"disadvantages\": \"所有业务模块共享相同的资源池（CPU、内存），局部资源争抢或计算密集型任务容易引发系统整体响应变慢；整体调优缺乏粒度控制。\"\n      },\n      \"microservices\": {\n        \"advantages\": \"支持针对特定服务进行精准的硬件资源优化与底层技术栈选型（如高性能网关使用Go/Rust，计算密集模块使用专用加速硬件），避免相互资源挤占。\",\n        \"disadvantages\": \"跨服务通信依赖RPC或HTTP，引入了额外的网络I/O、网络抖动及数据序列化/反序列化开销；分布式事务处理（如Saga、TCC）会显著增加延迟。\"\n      }\n    },\n    \"maintenance_cost\": {\n      \"monolithic\": {\n        \"advantages\": \"初期开发、代码审查与本地环境调试成本极低；单一代码库（Monorepo/Single Repo）便于全量重构与静态依赖分析；运维监控体系相对单一。\",\n        \"disadvantages\": \"随着系统演进，代码膨胀容易导致模块边界模糊与高耦合；新人理解全量代码的学习曲线陡峭；单点逻辑缺陷容易导致全系统崩溃。\"\n      },\n      \"microservices\": {\n        \"advantages\": \"各服务代码库小且职责单一，业务边界清晰；服务内部技术栈可独立演化与替换；团队自治性高，各团队仅需维护各自的服务接口契约。\",\n        \"disadvantages\": \"需要投入大量运维成本与平台工程资源来构建分布式追踪、日志集中收集、服务网格、API网关及配置中心等基础设施；接口版本管理与跨团队联调成本显著增加。\"\n      }\n    },\n    \"scalability\": {\n      \"monolithic\": {\n        \"advantages\": \"水平扩展实现简单，只需在负载均衡器后挂载多个相同的完整应用实例，前期扩容逻辑直观直接。\",\n        \"disadvantages\": \"仅支持粗粒度的整体扩容，无法单独扩展某一个高负载子模块，硬件资源利用效率较低；数据层往往绑定单一共享数据库，扩展受限于主库单点瓶颈。\"\n      },\n      \"microservices\": {\n        \"advantages\": \"支持细粒度的弹性伸缩，可单独针对热点或高流量服务增加副本，资源利用率最大化；每个服务可独立选择专用的数据库类型（Polyglot Persistence），更易实现数据分片与水平扩展。\",\n        \"disadvantages\": \"服务间拓扑关系复杂，流量激增时易产生级联雪崩效应，依赖熔断、限流与降级等复杂的容错治理机制以维持系统可用性。\"\n      }\n    },\n    \"deployment_complexity\": {\n      \"monolithic\": {\n        \"advantages\": \"CI/CD流水线构建简单直观，只需打包生成单一的可执行构件（如JAR包、单个Docker镜像）并分发至目标服务器即可完成部署。\",\n        \"disadvantages\": \"任何微小改动均需全量编译、构建和测试，部署周期长；发布过程风险集中，若发生故障需进行全量回滚，阻碍高频敏捷交付。\"\n      },\n      \"microservices\": {\n        \"advantages\": \"各服务拥有独立的部署生命周期，支持高频发布；可针对单个服务无缝推行蓝绿发布、金丝雀发布等渐进式交付策略，变更影响范围可控。\",\n        \"disadvantages\": \"服务实例众多，高度依赖容器编排（如Kubernetes）、自动化配置管理与自动化发布流水线；跨服务版本依赖与数据库架构变更协同复杂，对发布编排能力要求极高。\"\n      }\n    }\n  },\n  \"recommendation\": \"在项目初期、业务模式尚未明确验证或团队规模较小时，优先采用单体架构（或模块化单体架构），以最低的工程复杂度和运维成本快速推进产品落地与功能迭代；当业务规模扩大、团队人数拆分为多个自治小组，且出现明显的局部性能瓶颈或多团队并行开发冲突时，再以清晰的领域边界为基准逐步将核心模块解耦为微服务架构。避免在缺乏成熟DevOps基础设施支撑时过早引入微服务。\"\n}",
+      "parsed_result": {
+        "comparison": {
+          "performance": {
+            "monolithic": {
+              "advantages": "组件间通过进程内直接方法调用进行交互，无网络延迟与额外序列化开销；共享内存与单体数据库支持高性能事务处理。",
+              "disadvantages": "所有业务模块共享相同的资源池（CPU、内存），局部资源争抢或计算密集型任务容易引发系统整体响应变慢；整体调优缺乏粒度控制。"
+            },
+            "microservices": {
+              "advantages": "支持针对特定服务进行精准的硬件资源优化与底层技术栈选型（如高性能网关使用Go/Rust，计算密集模块使用专用加速硬件），避免相互资源挤占。",
+              "disadvantages": "跨服务通信依赖RPC或HTTP，引入了额外的网络I/O、网络抖动及数据序列化/反序列化开销；分布式事务处理（如Saga、TCC）会显著增加延迟。"
+            }
+          },
+          "maintenance_cost": {
+            "monolithic": {
+              "advantages": "初期开发、代码审查与本地环境调试成本极低；单一代码库（Monorepo/Single Repo）便于全量重构与静态依赖分析；运维监控体系相对单一。",
+              "disadvantages": "随着系统演进，代码膨胀容易导致模块边界模糊与高耦合；新人理解全量代码的学习曲线陡峭；单点逻辑缺陷容易导致全系统崩溃。"
+            },
+            "microservices": {
+              "advantages": "各服务代码库小且职责单一，业务边界清晰；服务内部技术栈可独立演化与替换；团队自治性高，各团队仅需维护各自的服务接口契约。",
+              "disadvantages": "需要投入大量运维成本与平台工程资源来构建分布式追踪、日志集中收集、服务网格、API网关及配置中心等基础设施；接口版本管理与跨团队联调成本显著增加。"
+            }
+          },
+          "scalability": {
+            "monolithic": {
+              "advantages": "水平扩展实现简单，只需在负载均衡器后挂载多个相同的完整应用实例，前期扩容逻辑直观直接。",
+              "disadvantages": "仅支持粗粒度的整体扩容，无法单独扩展某一个高负载子模块，硬件资源利用效率较低；数据层往往绑定单一共享数据库，扩展受限于主库单点瓶颈。"
+            },
+            "microservices": {
+              "advantages": "支持细粒度的弹性伸缩，可单独针对热点或高流量服务增加副本，资源利用率最大化；每个服务可独立选择专用的数据库类型（Polyglot Persistence），更易实现数据分片与水平扩展。",
+              "disadvantages": "服务间拓扑关系复杂，流量激增时易产生级联雪崩效应，依赖熔断、限流与降级等复杂的容错治理机制以维持系统可用性。"
+            }
+          },
+          "deployment_complexity": {
+            "monolithic": {
+              "advantages": "CI/CD流水线构建简单直观，只需打包生成单一的可执行构件（如JAR包、单个Docker镜像）并分发至目标服务器即可完成部署。",
+              "disadvantages": "任何微小改动均需全量编译、构建和测试，部署周期长；发布过程风险集中，若发生故障需进行全量回滚，阻碍高频敏捷交付。"
+            },
+            "microservices": {
+              "advantages": "各服务拥有独立的部署生命周期，支持高频发布；可针对单个服务无缝推行蓝绿发布、金丝雀发布等渐进式交付策略，变更影响范围可控。",
+              "disadvantages": "服务实例众多，高度依赖容器编排（如Kubernetes）、自动化配置管理与自动化发布流水线；跨服务版本依赖与数据库架构变更协同复杂，对发布编排能力要求极高。"
+            }
+          }
+        },
+        "recommendation": "在项目初期、业务模式尚未明确验证或团队规模较小时，优先采用单体架构（或模块化单体架构），以最低的工程复杂度和运维成本快速推进产品落地与功能迭代；当业务规模扩大、团队人数拆分为多个自治小组，且出现明显的局部性能瓶颈或多团队并行开发冲突时，再以清晰的领域边界为基准逐步将核心模块解耦为微服务架构。避免在缺乏成熟DevOps基础设施支撑时过早引入微服务。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 58.38,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1277.95,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1336.33,
+          "cpu_percent": 0.0
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 40,
+        "estimated_outbound_bytes": 55005,
+        "response_count": 40,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 37
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 40,
+            "estimated_outbound_bytes": 55005,
+            "response_count": 40,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 6,
+      "task_id": "task_C_complex_format_20260822_202024_r6",
+      "status": "success",
+      "duration": 9.33,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"order_id\": \"ORD-20260822-984210\",\n  \"user\": {\n    \"user_id\": \"USR-10492\",\n    \"username\": \"alex_chen\",\n    \"email\": \"alex.chen@example.com\",\n    \"phone\": \"+86-13800138000\",\n    \"shipping_address\": {\n      \"recipient_name\": \"Alex Chen\",\n      \"street\": \"123 Technology Park Ave, Suite 400\",\n      \"city\": \"Hangzhou\",\n      \"state\": \"Zhejiang\",\n      \"postal_code\": \"310000\",\n      \"country\": \"CN\"\n    }\n  },\n  \"items\": [\n    {\n      \"item_id\": \"SKU-90214\",\n      \"product_id\": \"PROD-5541\",\n      \"product_name\": \"Ergonomic Mechanical Keyboard\",\n      \"sku_attributes\": {\n        \"color\": \"Matte Black\",\n        \"switch_type\": \"Tactile Quiet\"\n      },\n      \"unit_price\": 129.99,\n      \"quantity\": 1,\n      \"total_price\": 129.99\n    },\n    {\n      \"item_id\": \"SKU-33201\",\n      \"product_id\": \"PROD-1189\",\n      \"product_name\": \"Wireless Charging Mouse Pad\",\n      \"sku_attributes\": {\n        \"size\": \"XL (800x300mm)\",\n        \"color\": \"Dark Gray\"\n      },\n      \"unit_price\": 34.50,\n      \"quantity\": 2,\n      \"total_price\": 69.00\n    }\n  ],\n  \"payment\": {\n    \"payment_id\": \"PAY-88301923\",\n    \"payment_method\": \"credit_card\",\n    \"payment_gateway\": \"Stripe\",\n    \"currency\": \"USD\",\n    \"summary\": {\n      \"subtotal\": 198.99,\n      \"tax\": 15.92,\n      \"shipping_fee\": 0.00,\n      \"discount\": 10.00,\n      \"grand_total\": 204.91\n    },\n    \"status\": \"PAID\",\n    \"paid_at\": \"2026-08-22T12:21:28Z\",\n    \"transaction_reference\": \"ch_3N8xYz2eZvKYlo2C1g9XwLqA\"\n  }\n}",
+      "parsed_result": {
+        "order_id": "ORD-20260822-984210",
+        "user": {
+          "user_id": "USR-10492",
+          "username": "alex_chen",
+          "email": "alex.chen@example.com",
+          "phone": "+86-13800138000",
+          "shipping_address": {
+            "recipient_name": "Alex Chen",
+            "street": "123 Technology Park Ave, Suite 400",
+            "city": "Hangzhou",
+            "state": "Zhejiang",
+            "postal_code": "310000",
+            "country": "CN"
+          }
+        },
+        "items": [
+          {
+            "item_id": "SKU-90214",
+            "product_id": "PROD-5541",
+            "product_name": "Ergonomic Mechanical Keyboard",
+            "sku_attributes": {
+              "color": "Matte Black",
+              "switch_type": "Tactile Quiet"
+            },
+            "unit_price": 129.99,
+            "quantity": 1,
+            "total_price": 129.99
+          },
+          {
+            "item_id": "SKU-33201",
+            "product_id": "PROD-1189",
+            "product_name": "Wireless Charging Mouse Pad",
+            "sku_attributes": {
+              "size": "XL (800x300mm)",
+              "color": "Dark Gray"
+            },
+            "unit_price": 34.5,
+            "quantity": 2,
+            "total_price": 69.0
+          }
+        ],
+        "payment": {
+          "payment_id": "PAY-88301923",
+          "payment_method": "credit_card",
+          "payment_gateway": "Stripe",
+          "currency": "USD",
+          "summary": {
+            "subtotal": 198.99,
+            "tax": 15.92,
+            "shipping_fee": 0.0,
+            "discount": 10.0,
+            "grand_total": 204.91
+          },
+          "status": "PAID",
+          "paid_at": "2026-08-22T12:21:28Z",
+          "transaction_reference": "ch_3N8xYz2eZvKYlo2C1g9XwLqA"
+        }
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 62.7,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1287.06,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1349.76,
+          "cpu_percent": 0.0
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 41,
+        "estimated_outbound_bytes": 345518,
+        "response_count": 41,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 38
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 41,
+            "estimated_outbound_bytes": 345518,
+            "response_count": 41,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 7,
+      "task_id": "task_A_simple_json_20260822_202024_r7",
+      "status": "success",
+      "duration": 8.06,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"primary_applications\": [\n        \"人工智能与机器学习\",\n        \"数据分析与科学计算\",\n        \"后端Web开发\",\n        \"自动化脚本与网络爬虫\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"primary_applications\": [\n        \"前端Web开发与交互\",\n        \"全栈/后端开发 (Node.js)\",\n        \"跨平台移动应用开发 (React Native等)\",\n        \"桌面端应用开发 (Electron)\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"primary_applications\": [\n        \"企业级后端系统与微服务\",\n        \"Android移动应用开发\",\n        \"大数据处理框架 (如Hadoop、Spark生态)\",\n        \"金融与高并发交易系统\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 是当前工业界最常用的三种编程语言，分别在人工智能与数据科学、现代Web开发与跨平台生态，以及大型企业级系统与移动开发领域占据核心地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "primary_applications": [
+              "人工智能与机器学习",
+              "数据分析与科学计算",
+              "后端Web开发",
+              "自动化脚本与网络爬虫"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "primary_applications": [
+              "前端Web开发与交互",
+              "全栈/后端开发 (Node.js)",
+              "跨平台移动应用开发 (React Native等)",
+              "桌面端应用开发 (Electron)"
+            ]
+          },
+          {
+            "name": "Java",
+            "primary_applications": [
+              "企业级后端系统与微服务",
+              "Android移动应用开发",
+              "大数据处理框架 (如Hadoop、Spark生态)",
+              "金融与高并发交易系统"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 是当前工业界最常用的三种编程语言，分别在人工智能与数据科学、现代Web开发与跨平台生态，以及大型企业级系统与移动开发领域占据核心地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 66.68,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1333.47,
+          "cpu_percent": 15.4
+        },
+        "total": {
+          "rss_mb": 1400.15,
+          "cpu_percent": 15.4
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 39,
+        "estimated_outbound_bytes": 53414,
+        "response_count": 39,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 36
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 39,
+            "estimated_outbound_bytes": 53414,
+            "response_count": 39,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 8,
+      "task_id": "task_B_long_text_20260822_202024_r8",
+      "status": "success",
+      "duration": 13.4,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "{\n\"comparison\": {\n\"performance\": {\n\"monolithic\": {\n\"advantages\": \"内部模块通过进程内函数调用与内存共享进行通信，调用延迟极低（纳秒/微秒级），无网络传输开销和额外的序列化/反序列化损耗；事务处理可在单个数据库连接内高效完成。\",\n\"disadvantages\": \"随着业务规模扩张，内存占用增大容易导致频繁GC停顿；单一资源密集型模块（如大计算或复杂报表）可能拖慢整个应用的响应速度。\"\n},\n\"microservices\": {\n\"advantages\": \"可针对热点服务单独进行资源调优与硬件配置（如高内存或计算密集型节点）；独立数据库减少了单一实例的锁竞争与连接瓶颈。\",\n\"disadvantages\": \"跨服务通信主要依赖网络（HTTP/gRPC/RPC），网络延迟、带宽占用及序列化开销显著增加；分布式事务（如Saga模式）和跨服务数据聚合会大幅降低系统响应速度。\"\n}\n},\n\"maintenance_cost\": {\n\"monolithic\": {\n\"advantages\": \"初期代码库集中，代码重构、全局调试、错误追踪和日志排查简单直接；团队技术栈统一，新成员上手快，管理成本低。\",\n\"disadvantages\": \"后期演变为“大泥球”架构，代码耦合度高、边界模糊；改动局部可能引发意料之外的全局连锁故障，代码审查与长期技术债务维护成本呈指数级上升。\"\n},\n\"microservices\": {\n\"advantages\": \"服务边界清晰，代码库轻量独立，单个服务易于理解和重构；技术栈异构性好，各团队可根据场景灵活选型与技术演进。\",\n\"disadvantages\": \"需要维护服务治理组件（注册发现、配置中心、网关、分布式追踪等）；接口兼容性管理（API版本控制）要求极高；分布式排错和跨团队协作沟通成本大。\"\n}\n},\n\"scalability\": {\n\"monolithic\": {\n\"advantages\": \"横向扩展机制简单直接，通过负载均衡器多实例复制整套应用即可支撑初期流量增长。\",\n\"disadvantages\": \"无法进行细粒度扩展，扩容瓶颈模块必须复制整个单体，造成计算与内存资源的严重浪费；受限于单体数据库连接池与吞吐量上限。\"\n},\n\"microservices\": {\n\"advantages\": \"具备高弹性和细粒度横向扩展能力，支持根据各服务实时负载自动动态伸缩（如Kubernetes HPA）；数据存储可按服务独立拆分（分库分表/专有存储）。\",\n\"disadvantages\": \"拓扑结构复杂，流量路由、服务网格及分布式数据一致性的扩展管理门槛极高。\"\n}\n},\n\"deployment_complexity\": {\n\"monolithic\": {\n\"advantages\": \"部署流水线单一，构建单一产物（如单个JAR包或Docker镜像）即可直接部署；发布验证和回滚操作直观快捷。\",\n\"disadvantages\": \"“牵一发而动全身”，任何细微更新都需要全量重新编译、测试和部署；部署风险集中，阻碍高频持续交付（CI/CD）。\"\n},\n\"microservices\": {\n\"advantages\": \"服务间可独立构建、测试与部署，支持灰度发布、金丝雀发布及蓝绿部署，单服务发布失败不会导致全站崩溃，支持高频敏捷迭代。\",\n\"disadvantages\": \"依赖高度成熟的DevOps基础设施（CI/CD、容器编排、自动化测试、服务网格等）；多服务版本依赖与变更协同要求严格的发布流程管理。\"\n}\n}\n},\n\"recommendation\": \"在架构选型时应遵循'演进式设计'与业务驱动原则：对于初创项目、业务模式尚在探索期、团队规模较小或并发量有限的系统，优先采用模块化良好的单体架构（Modular Monolith），以极低的运维成本快速验证业务；当业务规模快速扩张、团队拆分为多个专业化小组、不同功能模块出现明显差异化的吞吐与算力需求，且团队具备成熟的DevOps基础设施与分布式治理能力时，再将核心瓶颈模块逐步剥离重构成微服务架构。\"\n}",
+      "parsed_result": {
+        "comparison": {
+          "performance": {
+            "monolithic": {
+              "advantages": "内部模块通过进程内函数调用与内存共享进行通信，调用延迟极低（纳秒/微秒级），无网络传输开销和额外的序列化/反序列化损耗；事务处理可在单个数据库连接内高效完成。",
+              "disadvantages": "随着业务规模扩张，内存占用增大容易导致频繁GC停顿；单一资源密集型模块（如大计算或复杂报表）可能拖慢整个应用的响应速度。"
+            },
+            "microservices": {
+              "advantages": "可针对热点服务单独进行资源调优与硬件配置（如高内存或计算密集型节点）；独立数据库减少了单一实例的锁竞争与连接瓶颈。",
+              "disadvantages": "跨服务通信主要依赖网络（HTTP/gRPC/RPC），网络延迟、带宽占用及序列化开销显著增加；分布式事务（如Saga模式）和跨服务数据聚合会大幅降低系统响应速度。"
+            }
+          },
+          "maintenance_cost": {
+            "monolithic": {
+              "advantages": "初期代码库集中，代码重构、全局调试、错误追踪和日志排查简单直接；团队技术栈统一，新成员上手快，管理成本低。",
+              "disadvantages": "后期演变为“大泥球”架构，代码耦合度高、边界模糊；改动局部可能引发意料之外的全局连锁故障，代码审查与长期技术债务维护成本呈指数级上升。"
+            },
+            "microservices": {
+              "advantages": "服务边界清晰，代码库轻量独立，单个服务易于理解和重构；技术栈异构性好，各团队可根据场景灵活选型与技术演进。",
+              "disadvantages": "需要维护服务治理组件（注册发现、配置中心、网关、分布式追踪等）；接口兼容性管理（API版本控制）要求极高；分布式排错和跨团队协作沟通成本大。"
+            }
+          },
+          "scalability": {
+            "monolithic": {
+              "advantages": "横向扩展机制简单直接，通过负载均衡器多实例复制整套应用即可支撑初期流量增长。",
+              "disadvantages": "无法进行细粒度扩展，扩容瓶颈模块必须复制整个单体，造成计算与内存资源的严重浪费；受限于单体数据库连接池与吞吐量上限。"
+            },
+            "microservices": {
+              "advantages": "具备高弹性和细粒度横向扩展能力，支持根据各服务实时负载自动动态伸缩（如Kubernetes HPA）；数据存储可按服务独立拆分（分库分表/专有存储）。",
+              "disadvantages": "拓扑结构复杂，流量路由、服务网格及分布式数据一致性的扩展管理门槛极高。"
+            }
+          },
+          "deployment_complexity": {
+            "monolithic": {
+              "advantages": "部署流水线单一，构建单一产物（如单个JAR包或Docker镜像）即可直接部署；发布验证和回滚操作直观快捷。",
+              "disadvantages": "“牵一发而动全身”，任何细微更新都需要全量重新编译、测试和部署；部署风险集中，阻碍高频持续交付（CI/CD）。"
+            },
+            "microservices": {
+              "advantages": "服务间可独立构建、测试与部署，支持灰度发布、金丝雀发布及蓝绿部署，单服务发布失败不会导致全站崩溃，支持高频敏捷迭代。",
+              "disadvantages": "依赖高度成熟的DevOps基础设施（CI/CD、容器编排、自动化测试、服务网格等）；多服务版本依赖与变更协同要求严格的发布流程管理。"
+            }
+          }
+        },
+        "recommendation": "在架构选型时应遵循'演进式设计'与业务驱动原则：对于初创项目、业务模式尚在探索期、团队规模较小或并发量有限的系统，优先采用模块化良好的单体架构（Modular Monolith），以极低的运维成本快速验证业务；当业务规模快速扩张、团队拆分为多个专业化小组、不同功能模块出现明显差异化的吞吐与算力需求，且团队具备成熟的DevOps基础设施与分布式治理能力时，再将核心瓶颈模块逐步剥离重构成微服务架构。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 70.75,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1458.58,
+          "cpu_percent": 7.7
+        },
+        "total": {
+          "rss_mb": 1529.33,
+          "cpu_percent": 7.7
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 41,
+        "estimated_outbound_bytes": 56187,
+        "response_count": 41,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 38
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 41,
+            "estimated_outbound_bytes": 56187,
+            "response_count": 41,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 9,
+      "task_id": "task_C_complex_format_20260822_202024_r9",
+      "status": "success",
+      "duration": 9.38,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"order_id\": \"ORD-20260822-894120\",\n  \"user\": {\n    \"user_id\": \"usr_992144\",\n    \"name\": \"张三\",\n    \"email\": \"zhangsan@example.com\",\n    \"phone\": \"+86-13800138000\",\n    \"shipping_address\": {\n      \"recipient\": \"张三\",\n      \"phone\": \"+86-13800138000\",\n      \"province\": \"广东省\",\n      \"city\": \"深圳市\",\n      \"district\": \"南山区\",\n      \"street\": \"科技园南区深南大道9999号\",\n      \"postal_code\": \"518000\"\n    }\n  },\n  \"items\": [\n    {\n      \"sku_id\": \"sku_8829103\",\n      \"product_id\": \"prod_440192\",\n      \"title\": \"无线降噪头戴式耳机\",\n      \"selected_attributes\": {\n        \"color\": \"深空灰\",\n        \"edition\": \"标准版\"\n      },\n      \"unit_price\": 1299.00,\n      \"quantity\": 1,\n      \"subtotal\": 1299.00\n    },\n    {\n      \"sku_id\": \"sku_1029481\",\n      \"product_id\": \"prod_330198\",\n      \"title\": \"耳机专用收纳硬壳包\",\n      \"selected_attributes\": {\n        \"color\": \"哑光黑\"\n      },\n      \"unit_price\": 89.00,\n      \"quantity\": 1,\n      \"subtotal\": 89.00\n    }\n  ],\n  \"payment\": {\n    \"payment_id\": \"pay_txn_771829031\",\n    \"status\": \"PAID\",\n    \"currency\": \"CNY\",\n    \"pricing_summary\": {\n      \"items_total\": 1388.00,\n      \"discount_amount\": 100.00,\n      \"shipping_fee\": 0.00,\n      \"tax_amount\": 0.00,\n      \"final_paid_amount\": 1288.00\n    },\n    \"payment_method\": \"ALIPAY\",\n    \"paid_at\": \"2026-08-22T21:22:00Z\"\n  }\n}",
+      "parsed_result": {
+        "order_id": "ORD-20260822-894120",
+        "user": {
+          "user_id": "usr_992144",
+          "name": "张三",
+          "email": "zhangsan@example.com",
+          "phone": "+86-13800138000",
+          "shipping_address": {
+            "recipient": "张三",
+            "phone": "+86-13800138000",
+            "province": "广东省",
+            "city": "深圳市",
+            "district": "南山区",
+            "street": "科技园南区深南大道9999号",
+            "postal_code": "518000"
+          }
+        },
+        "items": [
+          {
+            "sku_id": "sku_8829103",
+            "product_id": "prod_440192",
+            "title": "无线降噪头戴式耳机",
+            "selected_attributes": {
+              "color": "深空灰",
+              "edition": "标准版"
+            },
+            "unit_price": 1299.0,
+            "quantity": 1,
+            "subtotal": 1299.0
+          },
+          {
+            "sku_id": "sku_1029481",
+            "product_id": "prod_330198",
+            "title": "耳机专用收纳硬壳包",
+            "selected_attributes": {
+              "color": "哑光黑"
+            },
+            "unit_price": 89.0,
+            "quantity": 1,
+            "subtotal": 89.0
+          }
+        ],
+        "payment": {
+          "payment_id": "pay_txn_771829031",
+          "status": "PAID",
+          "currency": "CNY",
+          "pricing_summary": {
+            "items_total": 1388.0,
+            "discount_amount": 100.0,
+            "shipping_fee": 0.0,
+            "tax_amount": 0.0,
+            "final_paid_amount": 1288.0
+          },
+          "payment_method": "ALIPAY",
+          "paid_at": "2026-08-22T21:22:00Z"
+        }
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 74.61,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1495.06,
+          "cpu_percent": 0.0
+        },
+        "total": {
+          "rss_mb": 1569.67,
+          "cpu_percent": 0.0
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 40,
+        "estimated_outbound_bytes": 54931,
+        "response_count": 40,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 37
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 40,
+            "estimated_outbound_bytes": 54931,
+            "response_count": 40,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    },
+    {
+      "round": 10,
+      "task_id": "task_A_simple_json_20260822_202024_r10",
+      "status": "success",
+      "duration": 8.53,
+      "error": "",
+      "retry_count": 0,
+      "response_raw": "JSON\n{\n  \"languages\": [\n    {\n      \"name\": \"Python\",\n      \"main_applications\": [\n        \"人工智能与机器学习\",\n        \"数据分析与数据科学\",\n        \"Web后端开发\",\n        \"自动化脚本与网络爬虫\"\n      ]\n    },\n    {\n      \"name\": \"JavaScript\",\n      \"main_applications\": [\n        \"前端Web开发与交互设计\",\n        \"全栈/后端开发 (Node.js)\",\n        \"跨平台移动应用开发\",\n        \"桌面端应用开发 (Electron)\"\n      ]\n    },\n    {\n      \"name\": \"Java\",\n      \"main_applications\": [\n        \"企业级系统与微服务架构\",\n        \"Android原生移动开发\",\n        \"大数据处理框架 (如 Hadoop、Spark 生态)\",\n        \"金融与高并发后端服务\"\n      ]\n    }\n  ],\n  \"summary\": \"Python、JavaScript 和 Java 是当今软件行业中最流行且应用最广泛的三种编程语言，分别在数据智能、Web生态系统与企业级大型后端领域占据核心主导地位。\"\n}",
+      "parsed_result": {
+        "languages": [
+          {
+            "name": "Python",
+            "main_applications": [
+              "人工智能与机器学习",
+              "数据分析与数据科学",
+              "Web后端开发",
+              "自动化脚本与网络爬虫"
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "main_applications": [
+              "前端Web开发与交互设计",
+              "全栈/后端开发 (Node.js)",
+              "跨平台移动应用开发",
+              "桌面端应用开发 (Electron)"
+            ]
+          },
+          {
+            "name": "Java",
+            "main_applications": [
+              "企业级系统与微服务架构",
+              "Android原生移动开发",
+              "大数据处理框架 (如 Hadoop、Spark 生态)",
+              "金融与高并发后端服务"
+            ]
+          }
+        ],
+        "summary": "Python、JavaScript 和 Java 是当今软件行业中最流行且应用最广泛的三种编程语言，分别在数据智能、Web生态系统与企业级大型后端领域占据核心主导地位。"
+      },
+      "extraction_verified": true,
+      "extraction_error": "",
+      "metrics": {
+        "python": {
+          "pid": 11492,
+          "rss_mb": 78.71,
+          "cpu_percent": 0.0
+        },
+        "browser": {
+          "process_count": 10,
+          "rss_mb": 1484.52,
+          "cpu_percent": 15.4
+        },
+        "total": {
+          "rss_mb": 1563.23,
+          "cpu_percent": 15.4
+        }
+      },
+      "gemini_traffic": {
+        "request_count": 40,
+        "estimated_outbound_bytes": 54619,
+        "response_count": 40,
+        "declared_inbound_bytes": 0,
+        "methods": {
+          "GET": 3,
+          "POST": 37
+        },
+        "by_host": {
+          "gemini.google.com": {
+            "request_count": 40,
+            "estimated_outbound_bytes": 54619,
+            "response_count": 40,
+            "declared_inbound_bytes": 0
+          }
+        }
+      }
+    }
+  ]
+}
