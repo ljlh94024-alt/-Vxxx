@@ -1,0 +1,56 @@
+# Selector configuration for Gemini Web Interface
+# Priority hierarchy: aria -> role -> placeholder -> text -> css
+
+prompt_input:
+  aria:
+    - "div[aria-label*='Enter a prompt' i]"
+    - "div[aria-label*='输入提示' i]"
+    - "div[aria-label*='prompt' i]"
+  role:
+    - name: "Enter a prompt"
+      role: "textbox"
+    - role: "textbox"
+  placeholder:
+    - "[placeholder*='Ask Gemini' i]"
+    - "[placeholder*='Enter a prompt' i]"
+  css:
+    - "div.ql-editor"
+    - "div[contenteditable='true']"
+    - "textarea"
+
+send_button:
+  aria:
+    - "button[aria-label*='Send message' i]"
+    - "button[aria-label*='Submit' i]"
+    - "button[aria-label*='发送' i]"
+  role:
+    - name: "Send message"
+      role: "button"
+  css:
+    - "button.send-button"
+    - "mat-icon[data-mat-icon-name='send']"
+
+stop_button:
+  aria:
+    - "button[aria-label*='Stop' i]"
+    - "button[aria-label*='停止' i]"
+
+login_indicator:
+  sign_in:
+    aria:
+      - "a[aria-label*='Sign in' i]"
+      - "button[aria-label*='Sign in' i]"
+    text:
+      - "a:has-text('Sign in')"
+      - "button:has-text('Sign in')"
+      - "a:has-text('登录')"
+      - "button:has-text('登录')"
+
+response_container:
+  css:
+    - "message-content"
+    - "div.model-response-text"
+    - "div.response-container-content"
+    - "div[data-test-id='model-response-text']"
+    - ".markdown"
+    - "article"

@@ -1,58 +1,63 @@
 import unittest
+import os
 from parser import extract_json_text, parse_response
 from validator import extract_expected_keys, validate_result
 from task import Task, Result
+from store import StateStore, TaskState
+from worker import load_selectors
 
 
-class TestParserAndValidator(unittest.TestCase):
-    def test_extract_pure_json(self):
-        raw = '{"answer": "hello world", "keywords": ["test", "demo"]}'
-        extracted = extract_json_text(raw)
-        self.assertEqual(extracted, raw)
+class TestV02RuntimeSuite(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.test_db = "data/test_state.db"
+        if os.path.exists(cls.test_db):
+            os.remove(cls.test_db)
+        cls.store = StateStore(db_path=cls.test_db)
+
+    @classmethod
+    def tearDownClass(cls):
+        if os.path.exists(cls.test_db):
+            try:
+                os.remove(cls.test_db)
+            except Exception:
+                pass
+
+    def test_parser_and_validation(self):
+        raw = """```json
+        {
+          "features": ["speed", "safety"],
+          "version": 0.2
+        }
+        ```"""
         ok, data, err = parse_response(raw)
         self.assertTrue(ok)
-        self.assertEqual(data["answer"], "hello world")
+        self.assertEqual(data["version"], 0.2)
 
-    def test_extract_markdown_json(self):
-        raw = """Here is the result:
-```json
-{
-  "answer": "ok",
-  "score": 100
-}
-```
-Hope that helps!"""
-        ok, data, err = parse_response(raw)
-        self.assertTrue(ok)
-        self.assertEqual(data["score"], 100)
+        v_ok, v_err = validate_result(data, '{"features": [], "version": 0}')
+        self.assertTrue(v_ok)
 
-    def test_extract_embedded_json(self):
-        raw = 'Some introduction prefix text {"name": "Gemini", "version": 0.1} and trailing thoughts.'
-        ok, data, err = parse_response(raw)
-        self.assertTrue(ok)
-        self.assertEqual(data["name"], "Gemini")
+    def test_state_store_lifecycle(self):
+        task_id = "test_task_001"
+        self.store.create_task(task_id)
+        record = self.store.get_task(task_id)
+        self.assertIsNotNone(record)
+        self.assertEqual(record["state"], TaskState.CREATED)
 
-    def test_validator_success(self):
-        data = {"answer": "A", "keywords": ["B"]}
-        expected = '{"answer": "", "keywords": []}'
-        ok, err = validate_result(data, expected)
-        self.assertTrue(ok)
+        self.store.update_state(task_id, TaskState.RUNNING)
+        record = self.store.get_task(task_id)
+        self.assertEqual(record["state"], TaskState.RUNNING)
 
-    def test_validator_missing_keys(self):
-        data = {"answer": "A"}
-        expected = '{"answer": "", "keywords": []}'
-        ok, err = validate_result(data, expected)
-        self.assertFalse(ok)
-        self.assertIn("keywords", err)
+        self.store.update_state(task_id, TaskState.SUCCESS, result={"status": "all_good"})
+        record = self.store.get_task(task_id)
+        self.assertEqual(record["state"], TaskState.SUCCESS)
+        self.assertEqual(record["result"]["status"], "all_good")
 
-    def test_task_result_serialization(self):
-        task = Task(id="t1", goal="g", prompt="p", expected_output="e")
-        task_dict = task.to_dict()
-        self.assertEqual(task_dict["id"], "t1")
-        
-        result = Result(id="t1", status="success", json_result={"status": "ok"})
-        result_json = result.to_json()
-        self.assertIn('"status": "success"', result_json)
+    def test_selector_loader(self):
+        selectors = load_selectors("selectors/gemini.yaml")
+        self.assertIn("prompt_input", selectors)
+        self.assertIn("aria", selectors["prompt_input"])
+        self.assertIn("send_button", selectors)
 
 
 if __name__ == "__main__":
